@@ -1,0 +1,77 @@
+<script lang="ts" setup>
+import { computed } from 'vue';
+import BaseModal from './BaseModal.vue';
+
+import type { TBaseModalActions, TBaseModalEmits, TBaseModalProps } from './BaseModal.vue';
+
+//props
+const props = withDefaults(defineProps<TBaseModalProps>(), {
+    beforeAccept: () => true,
+    afterAccept: () => {},
+    visible: false
+});
+
+//emits
+const emit = defineEmits<TBaseModalEmits>();
+
+//slots
+defineSlots<{
+    header: (data: TBaseModalActions) => {};
+    body: (data: TBaseModalActions) => {};
+    footer: (data: TBaseModalActions) => {};
+}>();
+
+//value
+const isVisible = computed({
+    get() {
+        return props.visible ?? false;
+    },
+    set(n: boolean) {
+        emit('update:visible', n);
+    }
+});
+const domTarget = computed(() => props.target);
+</script>
+<template>
+    <base-modal v-model:visible="isVisible" :target="domTarget">
+        <template #header="actions">
+            <slot v-bind="actions" name="header">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-custom-brown">Modal Title</h2>
+                    <button @click="actions.close" class="text-custom-gray hover:text-custom-orange-bright">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button></div
+            ></slot>
+        </template>
+        <template #body="actions">
+            <slot v-bind="actions" name="body"> <p class="text-custom-gray mb-4">Modal content goes here...</p></slot>
+        </template>
+        <template #footer="actions">
+            <slot v-bind="actions" name="footer">
+                <div class="flex justify-end">
+                    <button
+                        @click="actions.close"
+                        class="bg-transparent me-2 text-custom-orange-dark border border-custom-orange-dark hover:bg-custom-orange-bright hover:text-white rounded-md px-4 py-2">
+                        Close
+                    </button>
+                    <button
+                        @click="actions.accept"
+                        class="bg-custom-orange text-white px-4 py-2 rounded-md bg-custom-orange-dark hover:bg-custom-orange-bright">
+                        Accept
+                    </button>
+                </div>
+            </slot>
+        </template>
+    </base-modal>
+</template>
