@@ -14,6 +14,11 @@
                     class="mx-2 transition duration-300 ease-in-out transform hover:scale-110 hover:text-custom-orange-bright">
                     Modals
                 </router-link>
+                <router-link
+                    to="/d&d"
+                    class="mx-2 transition duration-300 ease-in-out transform hover:scale-110 hover:text-custom-orange-bright">
+                    D&D
+                </router-link>
             </nav>
         </header>
 

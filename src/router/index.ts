@@ -9,6 +9,11 @@ const router = createRouter({
             component: () => import('../views/ModalView.vue')
         },
         {
+            path: '/d&d',
+            name: 'drop',
+            component: () => import('../views/DropView.vue')
+        },
+        {
             path: '/',
             name: 'homr',
             component: () => import('../views/HomeView.vue')
