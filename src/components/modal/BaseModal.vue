@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch, type StyleValue } from 'vue';
 
 export type TBaseModalProps = {
     visible?: boolean;
@@ -16,11 +16,15 @@ export type TBaseModalEmits = {
 };
 
 //props
-const props = withDefaults(defineProps<TBaseModalProps>(), {
-    beforeAccept: () => true,
-    afterAccept: () => {},
-    visible: false
-});
+const props = withDefaults(
+    defineProps<TBaseModalProps & { modalCss?: string | Record<string, boolean>; modalStyle?: StyleValue }>(),
+    {
+        beforeAccept: () => true,
+        afterAccept: () => {},
+        visible: false,
+        modalCss: 'w-[48rem] h-[24rem] bg-white'
+    }
+);
 
 //values
 const visibleRef = ref(props.visible);
@@ -82,13 +86,9 @@ onMounted(() => {
 });
 </script>
 <template>
-    <!--<div v-if="isVisible" class="absolute top-0 left-0 w-screen h-screen bg-stone-800 opacity-75"></div>-->
-    <!--<div v-if="isVisible" class="absolute top-0 left-0 w-screen h-screen flex justify-center items-center">-->
-    {{ visible }}
-    <div v-if="isVisible" class="w-[48rem] h-[24rem] bg-white">
+    <div v-if="isVisible" :class="modalCss">
         <slot v-bind="slotData" name="header" />
         <slot v-bind="slotData" name="body" />
         <slot v-bind="slotData" name="footer" />
     </div>
-    <!--</div>-->
 </template>
