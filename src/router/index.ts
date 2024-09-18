@@ -17,9 +17,13 @@ const router = createRouter({
             path: '/',
             name: 'homr',
             component: () => import('../views/HomeView.vue')
+        },
+        {
+            path: '/carousel',
+            name: 'homr',
+            component: () => import('../views/CarouselView.vue')
         }
     ]
 });
 
 export default router;
-
