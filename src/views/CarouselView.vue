@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import CarrouselCard from '@/components/carousel/CarrouselCard.vue';
-import CarrouselContainer from '@/components/carousel/CarrouselContainer.vue';
+import CarrouselCard from '@/components/carousel/CarouselCard.vue';
+import CarrouselContainer from '@/components/carousel/CarouselContainer.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 </script>
 <template>
