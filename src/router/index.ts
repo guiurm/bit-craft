@@ -15,12 +15,12 @@ const router = createRouter({
         },
         {
             path: '/',
-            name: 'homr',
+            name: 'home',
             component: () => import('../views/HomeView.vue')
         },
         {
             path: '/carousel',
-            name: 'homr',
+            name: 'carousel',
             component: () => import('../views/CarouselView.vue')
         }
     ]

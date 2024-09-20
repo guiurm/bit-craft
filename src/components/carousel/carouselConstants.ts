@@ -7,4 +7,4 @@ export type TCarrouselCardInjection = {
     setContainerHeight: (v: number) => void;
 };
 export type TCarrouselProvideCard = TCarrouselCardInjection;
-export type TCarrouselItems = { id: string }[];
+export type TCarrouselItem = { id: string; subscriber: CarrouselSubscriber };
