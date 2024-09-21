@@ -92,27 +92,33 @@ watch(
 </script>
 
 <template>
-    <div
-        class="flex flex-wrap w-full border-0 border-b border-primary-500 flex-row"
-        :class="{ 'md:flex-col': directionR === TAB_DIRECTION_COL, 'border-b-0': directionR === TAB_DIRECTION_COL }">
+    <div class="flex" :class="{ 'flex-wrap': directionR === TAB_DIRECTION_LINE }">
         <div
-            class="tab-btn flex-grow flex justify-center items-center"
-            v-for="cTab in tabs"
-            :key="cTab.value.id"
+            class="flex flex-wrap border-0 border-b border-primary-500 flex-row"
             :class="{
-                'tab-btn--active': cTab.value.active,
-                'border-r-0 border-b': directionR === TAB_DIRECTION_COL,
-                'h-[50px]': directionR === TAB_DIRECTION_COL
-            }"
-            @click="() => clickTab(cTab)">
-            <template v-if="typeof cTab.value.header === 'string'">{{ cTab.value.header }}</template>
-            <template v-else>
-                <component
-                    :is="cTab.value.header.component"
-                    v-bind="cTab.value.header.binds"
-                    :key="`cH-${cTab.value.id}`" />
-            </template>
+                'flex-col border-b-0 w-fit': directionR === TAB_DIRECTION_COL,
+                'min-w-full': directionR === TAB_DIRECTION_LINE
+            }">
+            <div
+                class="tab-btn flex-grow flex justify-center items-center"
+                v-for="cTab in tabs"
+                :key="cTab.value.id"
+                :class="{
+                    'tab-btn--active': cTab.value.active,
+                    'h-[50px] border-r-0 border-b': directionR === TAB_DIRECTION_COL
+                }"
+                @click="() => clickTab(cTab)">
+                <template v-if="typeof cTab.value.header === 'string'">{{ cTab.value.header }}</template>
+                <template v-else>
+                    <component
+                        :is="cTab.value.header.component"
+                        v-bind="cTab.value.header.binds"
+                        :key="`cH-${cTab.value.id}`" />
+                </template>
+            </div>
+        </div>
+        <div class="w-full relative">
+            <slot />
         </div>
     </div>
-    <slot />
 </template>

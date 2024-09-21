@@ -29,7 +29,7 @@ const id = props.id ?? parseInt(`${Date.now() * Math.random()}`).toString(16);
 const tabR = ref({}) as Ref<TTabSlideData>;
 
 const { css, ...modifyCss } = useCssClassTranslator(props.class);
-modifyCss.addCss('overflow-y-auto flex flex-col grow');
+modifyCss.addCss('overflow-y-auto flex flex-col grow min-w-full');
 watch(
     () => props.class,
     n => modifyCss.addCss(n)
@@ -59,7 +59,7 @@ watch(
 const transition = computed(() => props.transitionName);
 </script>
 <template>
-    <transition :name="transition">
+    <transition :name="transition" class="absolute top-0">
         <div v-if="tabR.active" :class="css">
             <slot />
         </div>
