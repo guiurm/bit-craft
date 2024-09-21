@@ -9,6 +9,11 @@ const router = createRouter({
             component: () => import('../views/ModalView.vue')
         },
         {
+            path: '/tabs',
+            name: 'tabs',
+            component: () => import('../views/TabsView.vue')
+        },
+        {
             path: '/d&d',
             name: 'drop',
             component: () => import('../views/DropView.vue')
