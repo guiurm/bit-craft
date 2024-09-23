@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BaseModal from '@/components/modal/BaseModal.vue';
 import StyledModal from '@/components/modal/StyledModal.vue';
 import { ref, type Ref } from 'vue';
 const visible = ref(true);
@@ -16,7 +15,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
         }
     </pre
         >
-        <button ref="target">Open</button>
+        <button ref="target" class="btn-xs">Open</button>
         <!--
 
             <base-modal :target="target">
@@ -31,4 +30,3 @@ import MainLayout from '@/layouts/MainLayout.vue';
         <styled-modal v-model:visible="visible" :target="target"></styled-modal>
     </main-layout>
 </template>
-

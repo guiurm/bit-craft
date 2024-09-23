@@ -65,16 +65,8 @@ const domTarget = computed(() => props.target);
                 <template #footer="actions">
                     <slot v-bind="actions" name="footer">
                         <div class="flex justify-end">
-                            <button
-                                @click="actions.close"
-                                class="bg-transparent me-2 text-custom-orange-dark border border-custom-orange-dark hover:bg-custom-orange-bright hover:text-white rounded-md px-2 py-1">
-                                Close
-                            </button>
-                            <button
-                                @click="actions.accept"
-                                class="bg-custom-orange text-white px-2 py-1 rounded-md bg-custom-orange-dark hover:bg-custom-orange-bright">
-                                Accept
-                            </button>
+                            <button @click="actions.close" class="btn-sm">Close</button>
+                            <button @click="actions.accept" class="btn-primary">Accept</button>
                         </div>
                     </slot>
                 </template>
