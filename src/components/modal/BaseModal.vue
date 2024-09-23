@@ -1,11 +1,15 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch, type StyleValue } from 'vue';
+import { onClickOutside } from '@/composables/onClickOutside';
+import { computed, onMounted, onUnmounted, ref, watch, type Ref, type StyleValue } from 'vue';
+import useCssClassTranslator from '../cssClassTranslator';
 
 export type TBaseModalProps = {
     visible?: boolean;
     target?: HTMLElement;
     beforeAccept?: () => boolean;
     afterAccept?: () => void;
+    closeOnClickOutside?: boolean;
+    outsideClickHandler?: (event: MouseEvent) => boolean;
 };
 export type TBaseModalEmits = {
     'update:visible': [n: boolean];
@@ -21,14 +25,18 @@ const props = withDefaults(
     {
         beforeAccept: () => true,
         afterAccept: () => {},
+        closeOnClickOutside: true,
+        outsideClickHandler: () => true,
         visible: false,
         modalCss: 'w-[48rem] h-[24rem] bg-white'
     }
 );
 
 //values
+const modalDOM = ref() as Ref<HTMLDivElement>;
 const visibleRef = ref(props.visible);
 const isVisible = computed(() => visibleRef.value === true);
+const { css, ...modifyCss } = useCssClassTranslator(props.modalCss);
 
 //emits
 const emit = defineEmits<TBaseModalEmits>();
@@ -54,6 +62,7 @@ const open = () => {
     emit('open');
     emit('update:visible', true);
 };
+let clearOutclick = (): void => void 0;
 
 //slots
 const slotData = { close, accept, cancel, open, isVisible };
@@ -79,14 +88,24 @@ watch(
         n?.addEventListener('click', open);
     }
 );
+watch(
+    () => props.modalCss,
+    n => modifyCss.addCss(n)
+);
 
 //life-cicle
 onMounted(() => {
     props.target?.addEventListener('click', open);
+    clearOutclick = onClickOutside(modalDOM.value, e => {
+        if (props.closeOnClickOutside && props.outsideClickHandler(e)) close();
+    });
+});
+onUnmounted(() => {
+    clearOutclick();
 });
 </script>
 <template>
-    <div v-if="isVisible" :class="modalCss">
+    <div v-if="isVisible" :class="css" ref="modalDOM">
         <slot v-bind="slotData" name="header" />
         <slot v-bind="slotData" name="body" />
         <slot v-bind="slotData" name="footer" />

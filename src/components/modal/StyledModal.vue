@@ -53,13 +53,14 @@ const domTarget = computed(() => props.target);
                                         stroke-width="2"
                                         d="M6 18L18 6M6 6l12 12" />
                                 </svg>
-                            </button></div
-                    ></slot>
+                            </button>
+                        </div>
+                    </slot>
                 </template>
                 <template #body="actions">
                     <slot v-bind="actions" name="body">
-                        <p class="text-custom-gray mb-4">Modal content goes here...</p></slot
-                    >
+                        <p class="text-custom-gray mb-4">Modal content goes here...</p>
+                    </slot>
                 </template>
                 <template #footer="actions">
                     <slot v-bind="actions" name="footer">
