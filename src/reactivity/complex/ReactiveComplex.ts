@@ -8,12 +8,12 @@ export default class ReactiveComplex<V extends Record<string, any>> implements I
     private __subs: ReactiveComplexSubscriber<(newValue: V, old: V) => void>;
     private __isRef: boolean = true;
 
-    constructor(data: V) {
+    constructor(data: V, recursive: boolean = true) {
         this.__raw = data;
         this.__subs = new ReactiveComplexSubscriber();
         this.__proxy = createProxyComplex(data, data, this.__subs);
 
-        this._recursiveProxy();
+        if (recursive) this._recursiveProxy();
     }
 
     private _recursiveProxy() {

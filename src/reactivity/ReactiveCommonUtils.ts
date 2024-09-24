@@ -18,7 +18,7 @@ export const observe = <V>(re: IReactive<V>, fn: TRefSubscriber<V>) => {
     return clear;
 };
 
-export const setReactive = <V>(value: V, recursive: boolean = false): IReactive<V> => {
+export const setReactive = <V>(value: V, recursive: boolean = true): IReactive<V> => {
     let r: IReactive<V>;
 
     if (value === void 0 || value === null) throw new Error('');
@@ -30,7 +30,7 @@ export const setReactive = <V>(value: V, recursive: boolean = false): IReactive<
             r = new ReactiveSimple(value);
             break;
         default:
-            r = new ReactiveComplex(value);
+            r = new ReactiveComplex(value, recursive);
             break;
     }
 
