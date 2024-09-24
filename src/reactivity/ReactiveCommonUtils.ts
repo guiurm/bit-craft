@@ -1,15 +1,16 @@
-import type { HandlerReactiveComplex } from './HandlerReactiveComplex';
-import { ReactiveComplex } from './ReactiveComplex';
-import { ReactiveSimple } from './ReactiveSimple';
-import type { IReactive, TRefSubscriber } from './ReactivityTypes';
+import ReactiveComplex from './complex/ReactiveComplex';
+import ReactiveComplexHandler from './complex/ReactiveComplexHandler';
+import type ReactiveComplexSubscriber from './complex/ReactiveComplexSubscriber';
+import type { IReactive, IReactiveCore, TRefSubscriber } from './ReactivityTypes';
+import { ReactiveSimple } from './simple/ReactiveSimple';
 
 export const hasKey = <T extends Record<string, any>, K extends keyof T>(target: T, key: K) =>
     Object.getOwnPropertyDescriptor(target, key) !== void 0;
 
-export const isRef = (target: any) => hasKey(target, '__isRef');
+export const isRef = (target: any): target is IReactiveCore<any> => hasKey(target, '__isRef');
 
 export const observe = <V>(re: IReactive<V>, fn: TRefSubscriber<V>) => {
-    let clear = () => false;
+    let clear = () => true;
     if (isRef(re)) {
         re.subscribe(fn);
         clear = () => re.unSubscribe(fn);
@@ -17,23 +18,7 @@ export const observe = <V>(re: IReactive<V>, fn: TRefSubscriber<V>) => {
     return clear;
 };
 
-export const createProxy = <V extends Record<string, any>>(value: V, handler: HandlerReactiveComplex<V>): V => {
-    /*return new Proxy(value, {
-        get: <K extends keyof V>(target: V, key: K & string) => {
-            return target[key] as V[K];
-        },
-        set: function <K extends keyof V>(target: V, prop: K & string, value: V[K & string]) {
-            // Realizamos la asignación de la propiedad
-            target[prop] = value;
-            // Aquí puedes agregar lógica adicional para reaccionar a los cambios
-            console.log(`Se ha actualizado la propiedad ${prop} a ${value}`);
-            return true;
-        }
-    });*/
-    return new Proxy(value, handler);
-};
-
-export const setReactive = <V>(value: V): IReactive<V> => {
+export const setReactive = <V>(value: V, recursive: boolean = false): IReactive<V> => {
     let r: IReactive<V>;
 
     if (value === void 0 || value === null) throw new Error('');
@@ -45,9 +30,53 @@ export const setReactive = <V>(value: V): IReactive<V> => {
             r = new ReactiveSimple(value);
             break;
         default:
-            r = new ReactiveComplex(value as any);
+            r = new ReactiveComplex(value);
             break;
     }
 
     return r;
 };
+
+//new
+
+export const createProxyComplex = <
+    R extends Record<string, any>,
+    P extends Record<string, any>,
+    S extends ReactiveComplexSubscriber<(newValue: P, old: P) => void>
+>(
+    t: R,
+    p: P,
+    sus: S
+) => {
+    return new Proxy(t, new ReactiveComplexHandler(t, p, sus));
+};
+
+export const createRecursiveProxyComplex = <
+    R extends Record<string, any>,
+    P extends Record<string, any>,
+    S extends ReactiveComplexSubscriber<(newValue: P, old: P) => void>
+>(
+    t: R,
+    p: P,
+    sus: S
+) => {
+    iterateObjectDescriptor(t, (prop, data) => {
+        if (typeof data.value === 'object') {
+            t[prop] = createProxyComplex(t[prop], p, sus);
+            createRecursiveProxyComplex(t[prop], p, sus);
+        }
+    });
+};
+export function iterateObjectDescriptor<V extends Record<string, any>, K extends keyof V>(
+    obj: V,
+    fn: (key: K, data: TCustomPropertyDescriptor<V[K]>) => void
+) {
+    for (const key in obj) {
+        const descriptor = Object.getOwnPropertyDescriptor(obj, key);
+        if (descriptor) {
+            fn(key as unknown as K, descriptor as TCustomPropertyDescriptor<(typeof obj)[typeof key]>);
+        }
+    }
+}
+
+export type TCustomPropertyDescriptor<V> = PropertyDescriptor & { value: V; get?(): V; set?(v: V): void };

@@ -1,8 +1,8 @@
+import type { IReactiveCore, TRefSubscriber } from '../ReactivityTypes';
 import { ReactiveSubscriber } from './ReactiveSubscriber';
-import type { IReactive, TRefSubscriber } from './ReactivityTypes';
 
 type q = number | string | boolean | bigint;
-export class ReactiveSimple<V extends q> implements IReactive<V> {
+export class ReactiveSimple<V extends q> implements IReactiveCore<V> {
     private __v: V;
     private __rawValue: V;
     private __subs: ReactiveSubscriber<TRefSubscriber<V>>;
