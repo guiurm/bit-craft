@@ -1,8 +1,9 @@
-type IgnoreElement = string | HTMLElement;
+export type IgnoreElement = string | HTMLElement;
 
-interface OnClickOutsideOptions {
+export interface OnClickOutsideOptions {
     ignore?: IgnoreElement[];
     capture?: boolean;
+    omitChildren?: boolean;
 }
 
 export const onClickOutside = <T extends HTMLElement>(
@@ -10,10 +11,10 @@ export const onClickOutside = <T extends HTMLElement>(
     handler: (event: MouseEvent) => void,
     options: OnClickOutsideOptions = {}
 ): (() => void) => {
-    const { ignore = [], capture = true } = options;
+    const { ignore = [], capture = true, omitChildren = true } = options;
 
     const shouldIgnore = (event: MouseEvent): boolean => {
-        if (event.composedPath().includes(target)) {
+        if (omitChildren && event.composedPath().includes(target)) {
             return true;
         }
 
