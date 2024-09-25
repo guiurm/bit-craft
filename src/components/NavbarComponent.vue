@@ -17,6 +17,12 @@
                 class="mx-2 transition duration-300 ease-in-out transform hover:scale-110 hover:text-custom-orange-bright">
                 D&D
             </router-link>
+
+            <router-link
+                to="/dt"
+                class="mx-2 transition duration-300 ease-in-out transform hover:scale-110 hover:text-custom-orange-bright">
+                Datatable
+            </router-link>
         </nav>
     </header>
 </template>

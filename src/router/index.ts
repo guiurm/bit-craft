@@ -27,6 +27,11 @@ const router = createRouter({
             path: '/carousel',
             name: 'carousel',
             component: () => import('../views/CarouselView.vue')
+        },
+        {
+            path: '/dt',
+            name: 'datatable',
+            component: () => import('../views/DatatableView.vue')
         }
     ]
 });
