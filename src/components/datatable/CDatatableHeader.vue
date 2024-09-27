@@ -9,9 +9,7 @@ const props = withDefaults(defineProps<THeaderProps>(), {
     //row: () => ({ cells: [] }),
     cells: () => [],
     class: '',
-    onHeaderClick: noop,
-    onHeaderAuxclick: noop,
-    onHeaderDblclick: noop
+    events: () => ({ onHeaderClick: noop, onHeaderAuxclick: noop, onHeaderDblclick: noop })
 });
 
 const colsComp = computed(() => `repeat(${props.cols}, minmax(0, 1fr))`);
@@ -24,15 +22,15 @@ watch(
 const emits = defineEmits<{ click: [e: MouseEvent]; auxclick: [e: MouseEvent]; dblclick: [e: MouseEvent] }>();
 const events = {
     onClick: (e: MouseEvent) => {
-        props.onHeaderClick(e);
+        if (props.events.onHeaderClick) props.events.onHeaderClick(e);
         emits('click', e);
     },
     onAuxclick: (e: MouseEvent) => {
-        props.onHeaderAuxclick(e);
+        if (props.events.onHeaderAuxclick) props.events.onHeaderAuxclick(e);
         emits('auxclick', e);
     },
     onDblclick: (e: MouseEvent) => {
-        props.onHeaderDblclick(e);
+        if (props.events.onHeaderDblclick) props.events.onHeaderDblclick(e);
         emits('dblclick', e);
     }
 };

@@ -8,9 +8,7 @@ import type { TRowProps } from './datatableTypes';
 const props = withDefaults(defineProps<TRowProps>(), {
     cells: () => [],
     class: '',
-    onRowClick: noop,
-    onRowAuxclick: noop,
-    onRowDblclick: noop
+    events: () => ({ onRowClick: noop, onRowAuxclick: noop, onRowDblclick: noop })
 });
 
 const colsComp = computed(() => `repeat(${props.cols}, minmax(0, 1fr))`);
@@ -20,19 +18,19 @@ watch(
     n => modifyCss.setCss(n)
 );
 
-const emits = defineEmits<{ click: [e: MouseEvent]; auxclick: [e: MouseEvent]; dblclick: [e: MouseEvent] }>();
+const emits = defineEmits<{ rowClick: [e: MouseEvent]; rowAuxclick: [e: MouseEvent]; rowDblclick: [e: MouseEvent] }>();
 const events = {
     onClick: (e: MouseEvent) => {
-        props.onRowClick(e);
-        emits('click', e);
+        if (props.events.onRowClick) props.events.onRowClick(e);
+        emits('rowClick', e);
     },
     onAuxclick: (e: MouseEvent) => {
-        props.onRowAuxclick(e);
-        emits('auxclick', e);
+        if (props.events.onRowAuxclick) props.events.onRowAuxclick(e);
+        emits('rowAuxclick', e);
     },
     onDblclick: (e: MouseEvent) => {
-        props.onRowDblclick(e);
-        emits('dblclick', e);
+        if (props.events.onRowDblclick) props.events.onRowDblclick(e);
+        emits('rowDblclick', e);
     }
 };
 </script>

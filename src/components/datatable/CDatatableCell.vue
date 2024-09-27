@@ -7,10 +7,8 @@ import type { TCellProps } from './datatableTypes';
 const props = withDefaults(defineProps<TCellProps>(), {
     cell: () => ({ value: '' }),
     class: '',
-    onCellClick: noop,
-    onCellAuxclick: noop,
-    onCellDblclick: noop,
-    binds: () => ({})
+    binds: () => ({}),
+    events: () => ({ onCellClick: noop, onCellAuxclick: noop, onCellDblclick: noop })
 });
 
 const styleBind = computed(() =>
@@ -22,19 +20,23 @@ watch(
     n => modifyCss.setCss(n)
 );
 
-const emits = defineEmits<{ click: [e: MouseEvent]; auxclick: [e: MouseEvent]; dblclick: [e: MouseEvent] }>();
+const emits = defineEmits<{
+    cellClick: [e: MouseEvent];
+    cellAuxclick: [e: MouseEvent];
+    cellDblclick: [e: MouseEvent];
+}>();
 const events = {
     onClick: (e: MouseEvent) => {
-        props.onCellClick(e);
-        emits('click', e);
+        if (props.events.onCellClick) props.events.onCellClick(e);
+        emits('cellClick', e);
     },
     onAuxclick: (e: MouseEvent) => {
-        props.onCellAuxclick(e);
-        emits('auxclick', e);
+        if (props.events.onCellAuxclick) props.events.onCellAuxclick(e);
+        emits('cellAuxclick', e);
     },
     onDblclick: (e: MouseEvent) => {
-        props.onCellDblclick(e);
-        emits('dblclick', e);
+        if (props.events.onCellDblclick) props.events.onCellDblclick(e);
+        emits('cellDblclick', e);
     }
 };
 </script>

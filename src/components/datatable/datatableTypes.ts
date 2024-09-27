@@ -6,9 +6,11 @@ export type TRowProps = {
     cells?: TCellProps[];
     class?: TCss;
     customTemplateColumn?: string;
-    onRowClick?: (e: MouseEvent) => void;
-    onRowAuxclick?: (e: MouseEvent) => void;
-    onRowDblclick?: (e: MouseEvent) => void;
+    events?: {
+        onRowClick?: (e: MouseEvent) => void;
+        onRowAuxclick?: (e: MouseEvent) => void;
+        onRowDblclick?: (e: MouseEvent) => void;
+    };
 };
 
 export type THeaderProps = {
@@ -16,19 +18,23 @@ export type THeaderProps = {
     cells?: TCellProps[];
     class?: TCss;
     customTemplateColumn?: string;
-    onHeaderClick?: (e: MouseEvent) => void;
-    onHeaderAuxclick?: (e: MouseEvent) => void;
-    onHeaderDblclick?: (e: MouseEvent) => void;
+    events?: {
+        onHeaderClick?: (e: MouseEvent) => void;
+        onHeaderAuxclick?: (e: MouseEvent) => void;
+        onHeaderDblclick?: (e: MouseEvent) => void;
+    };
 };
 
 export type TCellProps = {
     value?: string | number | Component | (() => VNode);
     colSpan?: number;
     class?: TCss;
-    onCellClick?: (e: MouseEvent) => void;
-    onCellAuxclick?: (e: MouseEvent) => void;
-    onCellDblclick?: (e: MouseEvent) => void;
     binds?: Record<string, any>;
+    events?: {
+        onCellClick?: (e: MouseEvent) => void;
+        onCellAuxclick?: (e: MouseEvent) => void;
+        onCellDblclick?: (e: MouseEvent) => void;
+    };
 };
 
 export type TTableProps = {

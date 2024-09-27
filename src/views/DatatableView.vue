@@ -13,7 +13,12 @@ const head = ref({
     cells: [
         {
             value: 'cell head',
-            onCellClick: _e => console.log('header cell')
+            events: {
+                onCellClick: _e => {
+                    // _e.stopPropagation();
+                    console.log('header cell');
+                }
+            }
         }
     ]
 }) as Ref<THeaderProps>;
@@ -21,10 +26,20 @@ const head = ref({
 const row = ref([
     {
         cols: 2,
+        events: {
+            onRowClick: () => {
+                console.log('row click');
+            }
+        },
         cells: [
             {
                 value: 'cell body',
-                onClick: () => console.log('cell body')
+                events: {
+                    onCellClick: _e => {
+                        // _e.stopPropagation();
+                        console.log('cell body');
+                    }
+                }
             }
         ]
     }
