@@ -3,7 +3,7 @@ import { noop } from '@/globals';
 import { v6 } from 'uuid';
 import { computed, inject, onMounted, watch } from 'vue';
 import useCssClassTranslator from '../cssClassTranslator';
-import { cellInjectFromRow, type TCellProps } from './datatableTypes';
+import { cellInjectFromHeader, type TCellProps } from './datatableTypes';
 
 // props
 const props = withDefaults(defineProps<TCellProps>(), {
@@ -44,7 +44,7 @@ const { css: cssRef, ...modifyCss } = useCssClassTranslator(props.css);
 const identifier = props.identifier ?? v6();
 
 // injections
-const addCell2Row = cellInjectFromRow(inject);
+const addCell2Row = cellInjectFromHeader(inject);
 
 // watchers
 watch(
