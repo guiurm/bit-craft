@@ -1,18 +1,18 @@
-export type TCarrouselCardPosition = 'left' | 'visible' | 'hidden' | 'right'
-export type TCarrouselSubscriberCallback = (data: TCarrouselCardPosition) => void
+export type TCarrouselCardPosition = 'left' | 'visible' | 'hidden' | 'right';
+export type TCarrouselSubscriberCallback = (data: TCarrouselCardPosition) => void;
 
 export default class CarrouselSubscriber {
-    private _handlers: TCarrouselSubscriberCallback[]
+    private _handlers: TCarrouselSubscriberCallback[];
     constructor() {
-        this._handlers = []
+        this._handlers = [];
     }
     on(fn: TCarrouselSubscriberCallback) {
-        this._handlers.push(fn)
+        this._handlers.push(fn);
     }
     distpach(...data: Parameters<TCarrouselSubscriberCallback>) {
-        this._handlers.forEach((h) => h(...data))
+        this._handlers.forEach(h => h(...data));
     }
     clear() {
-        this._handlers.length = 0
+        this._handlers.length = 0;
     }
 }
