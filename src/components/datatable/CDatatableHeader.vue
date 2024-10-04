@@ -19,6 +19,7 @@ const emits = defineEmits<{
     rowAuxclick: [e: MouseEvent];
     rowDblclick: [e: MouseEvent];
     'update:cells': [cells: TCellProps[]];
+    cellClick: [column: number, cellId: string];
 }>();
 
 // actions
@@ -39,7 +40,9 @@ const events = {
 const parse = (cells: TCellProps[]): TCellProps[] => {
     return cells.map(c => ({ identifier: v6(), ...c }));
 };
-
+const manageCellClick = (cell: TCellProps) => {
+    emits('cellClick', cellsRef.value.indexOf(cell), cell.identifier as string);
+};
 // data
 const identifier = props.identifier ?? v6();
 const cellsRef = ref(parse(props.cells)) as Ref<TCellProps[]>;
@@ -83,7 +86,11 @@ onMounted(() => {
         :class="cssRef"
         :style="{ 'grid-template-columns': customTemplateColumn ?? colsComp }">
         <slot>
-            <c-datatable-cell-header v-for="(cell, i) in cellsRef" :key="`r-${i}`" v-bind="cell" />
+            <c-datatable-cell-header
+                v-for="(cell, i) in cellsRef"
+                :key="`r-${i}`"
+                v-bind="cell"
+                @cell-click="manageCellClick(cell)" />
         </slot>
     </div>
 </template>

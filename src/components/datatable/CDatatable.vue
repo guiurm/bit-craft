@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { v6 } from 'uuid';
-import { provide, ref, watch, type Ref } from 'vue';
+import { computed, provide, ref, watch, type Ref } from 'vue';
 import useCssClassTranslator from '../cssClassTranslator';
 import CDatatableHeader from './CDatatableHeader.vue';
 import CDatatableRow from './CDatatableRow.vue';
 import {
     tableProvide,
     tableProvideHeader,
+    type TCellProps,
     type THeaderProps,
     type TRowProps,
     type TTableProps
@@ -23,6 +24,42 @@ const props = withDefaults(defineProps<TTableProps>(), {
 const parse = (r: TRowProps[]): TRowProps[] => {
     return r.map(r => ({ identifier: v6(), ...r }));
 };
+const col = ref(null as null | number);
+const reverse = ref(false);
+const manageHeaderCellClick = (column: number, cellId: string) => {
+    console.log(column, cellId);
+    if (col.value === column) {
+        //col.value = null;
+        reverse.value = !reverse.value;
+        return;
+    }
+    col.value = column;
+};
+
+const order = computed(() => {
+    if (col.value === null) return refRows.value;
+    else
+        return refRows.value.slice().sort((a, b) => {
+            // Compara los valores de las celdas en el índice 2
+            const cellA = (a.cells as TCellProps[])[col.value as number] as Required<TCellProps>;
+
+            const cellB = (b.cells as TCellProps[])[col.value as number] as Required<TCellProps>;
+            console.log(cellA);
+            console.log(cellB);
+            const cellAV =
+                typeof cellA.value === 'string' || typeof cellA.value === 'number'
+                    ? cellA.value.toString()
+                    : cellA.value.filterValue ?? '';
+            const cellBV =
+                typeof cellB.value === 'string' || typeof cellB.value === 'number'
+                    ? cellB.value.toString()
+                    : cellB.value.filterValue ?? '';
+
+            // Ordena en orden ascendente (puedes cambiar a descendente si necesitas)
+
+            return reverse.value ? cellBV.localeCompare(cellAV) : cellAV.localeCompare(cellBV);
+        });
+});
 
 // data
 const refRows = ref(parse(props.rows)) as Ref<TRowProps[]>;
@@ -56,12 +93,16 @@ watch(
 <template>
     <div class="w-full h-full" :class="cssRef">
         <slot name="header">
-            <c-datatable-header v-bind="{ ...head }" :cols="cols" :custom-template-column="customTemplateColumn" />
+            <c-datatable-header
+                @cell-click="manageHeaderCellClick"
+                v-bind="{ ...head }"
+                :cols="cols"
+                :custom-template-column="customTemplateColumn" />
         </slot>
 
         <slot name="body">
             <c-datatable-row
-                v-for="(cRow, i) in refRows"
+                v-for="(cRow, i) in order"
                 :key="i"
                 v-bind="cRow"
                 v-model:cells="cRow.cells"
@@ -69,4 +110,5 @@ watch(
                 :custom-template-column="customTemplateColumn" />
         </slot>
     </div>
+    {{ order }}
 </template>

@@ -30,9 +30,9 @@ const row = ref(
         buildDatatableRow({
             cols: 3,
             cells: [
-                buildDatatableCell({ value: 'cell_1', events: { onCellClick: () => console.log('cell_1') } }),
-                buildDatatableCell({ value: 'cell_2', events: { onCellClick: () => console.log('cell_2') } }),
-                buildDatatableCell({ value: 'cell_3', events: { onCellClick: () => console.log('cell_3') } })
+                buildDatatableCell({ value: 'cell_4' }),
+                buildDatatableCell({ value: 'cell_5' }),
+                buildDatatableCell({ value: 'cell_6' })
             ],
             events: {
                 onRowClick: () => {
@@ -41,11 +41,11 @@ const row = ref(
             }
         }),
         buildDatatableRow({
-            //cols: 2,
+            cols: 3,
             cells: [
-                buildDatatableCell({ value: 'cell_4' }),
-                buildDatatableCell({ value: 'cell_5' }),
-                buildDatatableCell({ value: 'cell_6' })
+                buildDatatableCell({ value: 'cell_1', events: { onCellClick: () => console.log('cell_1') } }),
+                buildDatatableCell({ value: 'cell_2', events: { onCellClick: () => console.log('cell_2') } }),
+                buildDatatableCell({ value: 'cell_3', events: { onCellClick: () => console.log('cell_3') } })
             ],
             events: {
                 onRowClick: () => {
@@ -57,9 +57,9 @@ const row = ref(
 );
 
 setTimeout(() => {
-    row.value.push({ cols: 2, cells: [{ value: 'new value', events: { onCellClick: () => {} } }] });
+    row.value.push({ cols: 2, cells: [{ value: 'anew value', events: { onCellClick: () => {} } }] });
     row.value[0].css = 'c';
-    row.value[0].cells?.push({ value: 'new cell' });
+    row.value[0].cells?.push({ value: 'a new cell' });
     nextTick();
 }, 3000);
 </script>
