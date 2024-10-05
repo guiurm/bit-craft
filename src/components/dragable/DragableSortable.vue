@@ -1,34 +1,15 @@
 <script lang="ts" setup>
-import { ref, watch, type Component, type Ref } from 'vue';
+import { useDragAndDropItem } from '@/composables/drag&drop';
+import DropC from '@/views/DropC.vue';
+import { type Component, ref, type VNode } from 'vue';
 
-const drag = (eve: DragEvent) => {};
-const drop = (eve: DragEvent) => {};
-
-const dragLeave = (eve: DragEvent) => {};
-const dragExit = (eve: DragEvent) => {};
-const dragOverContainer = (eve: DragEvent) => {
-    eve.preventDefault();
-    //console.log(eve);
-};
-
-const dragEnter = (eve: DragEvent) => {
-    eve.preventDefault();
-};
+type V = number | string | Component | (() => VNode);
 
 //items
-const props = withDefaults(defineProps<{ list?: Component[] }>(), { list: () => [] });
-const data: Ref<Component[]> = ref(props.list);
-watch(
-    () => props.list,
-    n => {
-        data.value.length = 0;
-        console.log(n);
-
-        data.value.push(...n);
-    }
-);
-const seleted: Component = ref();
-const dragStart = (eve: DragEvent, item: Component) => {
+const props = defineProps<{ data: V[] }>();
+const items = ref(props.data);
+const seleted = ref(-1 as V);
+const dragStart = (eve: DragEvent, item: V) => {
     if (!eve.dataTransfer) return;
     eve.dataTransfer.dropEffect = 'move';
     eve.dataTransfer.effectAllowed = 'move';
@@ -38,39 +19,47 @@ const dragStart = (eve: DragEvent, item: Component) => {
 const dragEnd = () => {
     seleted.value = -1;
 };
-const dragOverItem = (eve: DragEvent, item: Component) => {
+const dragOverItem = (eve: DragEvent, item: V) => {
     eve.preventDefault();
     if (seleted.value === item) return;
 
-    const oldIndex = data.value.indexOf(seleted.value);
-    const newIndex = data.value.indexOf(item);
+    const oldIndex = items.value.indexOf(seleted.value);
+    const newIndex = items.value.indexOf(item);
 
-    data.value.splice(oldIndex, 1);
-    data.value.splice(newIndex, 0, seleted.value);
+    items.value.splice(oldIndex, 1);
+    items.value.splice(newIndex, 0, seleted.value);
 };
 </script>
 
 <template>
-    {{ data.length }}
+    {{ seleted }}
+    <br />
+    <pre>
+            {{ items }}
+        </pre
+    >
     <div class="container">
-        <div
-            @drop="drop"
-            @dragexit="dragExit"
-            @dragleave="dragLeave"
-            @dragover="dragOverContainer"
-            class="flex flex-col drag px-10 bg-slate-500 text-white">
-            <span
-                v-for="(cComponent, index) in data"
+        <div v-bind="useDragAndDropItem()" class="flex flex-col drag px-10 text-white">
+            <drop-c
+                v-for="(item, index) in items"
                 :key="index"
-                @drag="drag"
-                @dragend="dragEnd"
-                @dragenter="e => dragOverItem(e, cComponent)"
-                @dragstart="e => dragStart(e, cComponent)"
-                @dragover="() => {}"
-                :draggable="true"
-                class="drag-item bg-custom-orange-dark px-3 py-2 mb-2">
-                <component :is="cComponent"></component>
-            </span>
+                :dragBinds="{
+                    ...useDragAndDropItem(
+                        {
+                            dragend: dragEnd,
+                            dragenter: e => dragOverItem(e, item),
+                            dragstart: e => dragStart(e, item)
+                        },
+                        true
+                    )
+                }">
+                <template v-if="typeof item === 'string' || typeof item === 'number'">
+                    {{ item }}
+                </template>
+                <template v-else>
+                    <component :is="item" />
+                </template>
+            </drop-c>
         </div>
     </div>
 </template>

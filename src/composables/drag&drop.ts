@@ -22,7 +22,7 @@ export type TDragAndDropEvents = {
     [K in keyof TDragAndDropCallbacks as `on${Capitalize<K>}`]-?: TDragAndDropCallbacks[K];
 };
 
-export const useDragAndDropItem = (calls: TDragAndDropCallbacks = {}, draggable: boolean = true) => {
+export const useDragAndDropItem = (calls: TDragAndDropCallbacks = {}, draggable: boolean = false) => {
     const events = {} as TDragAndDropEvents;
 
     dragEventsKeys.forEach(eventKey => {

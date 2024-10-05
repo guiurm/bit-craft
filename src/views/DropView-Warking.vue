@@ -2,6 +2,7 @@
 import { useDragAndDropItem } from '@/composables/drag&drop';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { ref } from 'vue';
+import DropC from './DropC.vue';
 
 //items
 const items = ref([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -26,11 +27,6 @@ const dragOverItem = (eve: DragEvent, item: (typeof items)['value'][number]) => 
     items.value.splice(oldIndex, 1);
     items.value.splice(newIndex, 0, seleted.value);
 };
-
-const itemDrag = useDragAndDropItem({ dragend: dragEnd }, true);
-console.log(itemDrag);
-
-const containerDrag = useDragAndDropItem({}, false);
 </script>
 
 <template>
@@ -40,18 +36,22 @@ const containerDrag = useDragAndDropItem({}, false);
             {{ items }}
         </pre>
         <div class="container">
-            <div v-bind="containerDrag" class="flex flex-col drag px-10 text-white">
-                <span
+            <div v-bind="useDragAndDropItem()" class="flex flex-col drag px-10 text-white">
+                <drop-c
                     v-for="item in items"
                     :key="item"
-                    v-bind="{
-                        ...itemDrag,
-                        onDragenter: e => dragOverItem(e, item),
-                        onDragstart: e => dragStart(e, item)
-                    }"
-                    class="drag-item bg-slate-500 px-3 py-2 mb-2">
+                    :dragBinds="{
+                        ...useDragAndDropItem(
+                            {
+                                dragend: dragEnd,
+                                dragenter: e => dragOverItem(e, item),
+                                dragstart: e => dragStart(e, item)
+                            },
+                            true
+                        )
+                    }">
                     {{ item }}
-                </span>
+                </drop-c>
             </div>
         </div>
     </main-layout>
