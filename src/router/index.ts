@@ -16,7 +16,7 @@ const router = createRouter({
         {
             path: '/d&d',
             name: 'drop',
-            component: () => import('../views/DropView.vue')
+            component: () => import('../views/DropView-Warking.vue')
         },
         {
             path: '/',

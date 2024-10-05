@@ -1,20 +1,7 @@
 <script lang="ts" setup>
+import { useDragAndDropItem } from '@/composables/drag&drop';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { ref } from 'vue';
-
-const drag = (eve: DragEvent) => {};
-const drop = (eve: DragEvent) => {};
-
-const dragLeave = (eve: DragEvent) => {};
-const dragExit = (eve: DragEvent) => {};
-const dragOverContainer = (eve: DragEvent) => {
-    eve.preventDefault();
-    //console.log(eve);
-};
-
-const dragEnter = (eve: DragEvent) => {
-    eve.preventDefault();
-};
 
 //items
 const items = ref([1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -39,6 +26,11 @@ const dragOverItem = (eve: DragEvent, item: (typeof items)['value'][number]) => 
     items.value.splice(oldIndex, 1);
     items.value.splice(newIndex, 0, seleted.value);
 };
+
+const itemDrag = useDragAndDropItem({ dragend: dragEnd }, true);
+console.log(itemDrag);
+
+const containerDrag = useDragAndDropItem({}, false);
 </script>
 
 <template>
@@ -48,22 +40,16 @@ const dragOverItem = (eve: DragEvent, item: (typeof items)['value'][number]) => 
             {{ items }}
         </pre>
         <div class="container">
-            <div
-                @drop="drop"
-                @dragexit="dragExit"
-                @dragleave="dragLeave"
-                @dragover="dragOverContainer"
-                class="flex flex-col drag px-10 bg-slate-500 text-white">
+            <div v-bind="containerDrag" class="flex flex-col drag px-10 text-white">
                 <span
                     v-for="item in items"
                     :key="item"
-                    @drag="drag"
-                    @dragend="dragEnd"
-                    @dragenter="e => dragOverItem(e, item)"
-                    @dragstart="e => dragStart(e, item)"
-                    @dragover="() => {}"
-                    :draggable="true"
-                    class="drag-item bg-custom-orange-dark px-3 py-2 mb-2">
+                    v-bind="{
+                        ...itemDrag,
+                        onDragenter: e => dragOverItem(e, item),
+                        onDragstart: e => dragStart(e, item)
+                    }"
+                    class="drag-item bg-slate-500 px-3 py-2 mb-2">
                     {{ item }}
                 </span>
             </div>
