@@ -1,0 +1,11 @@
+.drag-container {
+    @apply flex flex-col px-10 text-white;
+
+    .drag-item {
+        @apply bg-slate-500 px-3 py-2 mb-2;
+
+        &[data-hs-drag-active="true"] {
+            @apply opacity-85 cursor-grabbing;
+        }
+    }
+}

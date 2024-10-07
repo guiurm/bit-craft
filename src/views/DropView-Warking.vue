@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useDragAndDropItem } from '@/composables/drag&drop';
+import { useDragAndDropItem } from '@/composables/dragAndDropop';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { ref } from 'vue';
 import DropC from './DropC.vue';

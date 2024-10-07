@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useDragAndDropItem } from '@/composables/drag&drop';
-import DropC from '@/views/DropC.vue';
+import { useDragAndDropItem } from '@/composables/dragAndDrop';
+import DragAndDropItem from '@/views/DragAndDropItem.vue';
 import { type Component, ref, type VNode } from 'vue';
 
 type V = number | string | Component | (() => VNode);
@@ -39,8 +39,8 @@ const dragOverItem = (eve: DragEvent, item: V) => {
         </pre
     >
     <div class="container">
-        <div v-bind="useDragAndDropItem()" class="flex flex-col drag px-10 text-white">
-            <drop-c
+        <div v-bind="useDragAndDropItem()" class="drag-container">
+            <drag-and-drop-item
                 v-for="(item, index) in items"
                 :key="index"
                 :dragBinds="{
@@ -52,14 +52,15 @@ const dragOverItem = (eve: DragEvent, item: V) => {
                         },
                         true
                     )
-                }">
+                }"
+                :selected="item === seleted">
                 <template v-if="typeof item === 'string' || typeof item === 'number'">
                     {{ item }}
                 </template>
                 <template v-else>
                     <component :is="item" />
                 </template>
-            </drop-c>
+            </drag-and-drop-item>
         </div>
     </div>
 </template>
