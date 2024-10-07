@@ -1,3 +1,6 @@
+import type { TNoppNoArgs } from '@/globals';
+import { useDomNativeEventManager } from './domNativeEventManager';
+
 export type IgnoreElement = string | HTMLElement;
 
 export interface OnClickOutsideOptions {
@@ -10,7 +13,7 @@ export const onClickOutside = <T extends HTMLElement>(
     target: T,
     handler: (event: MouseEvent) => void,
     options: OnClickOutsideOptions = {}
-): (() => void) => {
+): TNoppNoArgs => {
     const { ignore = [], capture = true, omitChildren = true } = options;
 
     const shouldIgnore = (event: MouseEvent): boolean => {
@@ -33,9 +36,5 @@ export const onClickOutside = <T extends HTMLElement>(
         }
     };
 
-    document.addEventListener('click', listener, { capture });
-
-    return () => {
-        document.removeEventListener('click', listener, { capture });
-    };
+    return useDomNativeEventManager(document).on('click', listener, { capture });
 };

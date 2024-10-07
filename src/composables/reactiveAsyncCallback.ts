@@ -1,3 +1,4 @@
+import { noop, type TNoppNoArgs } from '@/globals';
 import { ref, type Ref } from 'vue';
 
 type TFn<Fn = (...args: any[]) => Promise<any>> = Fn extends (...args: infer Args) => Promise<infer R>
@@ -5,7 +6,7 @@ type TFn<Fn = (...args: any[]) => Promise<any>> = Fn extends (...args: infer Arg
     : never;
 
 type TConf<C extends TFn, E> = {
-    onLoad?: () => void;
+    onLoad?: TNoppNoArgs;
     onSuccess?: (data: C['response']) => void;
     onError?: (error: E) => void;
 } & (
@@ -16,7 +17,6 @@ type TConf<C extends TFn, E> = {
     | { autoCall?: false }
 );
 
-const noop = () => void 0;
 const reactiveAsyncCallback = <Fn extends (...agrs: any[]) => Promise<any>, E = Error>(
     fn: Fn,
     conf: TConf<TFn<Fn>, E>

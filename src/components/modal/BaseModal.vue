@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@/composables/onClickOutside';
+import type { TNoppNoArgs } from '@/globals';
 import { computed, onMounted, onUnmounted, ref, watch, type Ref, type StyleValue } from 'vue';
 import useCssClassTranslator from '../cssClassTranslator';
 
@@ -7,7 +8,7 @@ export type TBaseModalProps = {
     visible?: boolean;
     target?: HTMLElement;
     beforeAccept?: () => boolean;
-    afterAccept?: () => void;
+    afterAccept?: TNoppNoArgs;
     closeOnClickOutside?: boolean;
     outsideClickHandler?: (event: MouseEvent) => boolean;
 };

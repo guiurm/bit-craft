@@ -1,3 +1,4 @@
+import type { TNoppNoArgs } from '@/globals';
 import type { Component, Ref, VNode } from 'vue';
 
 export const TAB_ADD = 'add_tab' as const;
@@ -10,7 +11,7 @@ export type TTabSlideData = {
     header: string | { component: Component | (() => VNode); binds: Record<string, any> };
     id: string;
     active: boolean;
-    emit: { clickTab: () => void; show: () => void; hide: () => void };
+    emit: { clickTab: TNoppNoArgs; show: TNoppNoArgs; hide: TNoppNoArgs };
 };
 
 export type TTabInjections = {

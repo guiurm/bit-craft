@@ -1,12 +1,13 @@
 <script lang="ts" setup>
+import type { TNoppNoArgs } from '@/globals';
 import { onMounted, provide } from 'vue';
 import { useCarousel } from './carouselComposable';
 import { CARROUSEL_ACTIONS, type TCarrouselProvideCard } from './carouselConstants';
 
 defineSlots<{
     default(): void;
-    prev(props: { prev: () => void }): void;
-    next(props: { next: () => void }): void;
+    prev(props: { prev: TNoppNoArgs }): void;
+    next(props: { next: TNoppNoArgs }): void;
 }>();
 const props = withDefaults(defineProps<{ infinite?: boolean }>(), { infinite: true });
 

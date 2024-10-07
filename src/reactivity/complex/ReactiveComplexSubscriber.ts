@@ -1,4 +1,6 @@
-export default class ReactiveComplexSubscriber<C extends (...args: any) => any = () => void> {
+import type { TNopp, TNoppNoArgs } from '@/globals';
+
+export default class ReactiveComplexSubscriber<C extends TNopp = TNoppNoArgs> {
     private _subscriber: Set<C>;
     constructor(fn?: C[]) {
         this._subscriber = new Set(fn);
