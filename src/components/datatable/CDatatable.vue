@@ -21,9 +21,10 @@ const props = withDefaults(defineProps<TTableProps>(), {
 });
 
 // actions
-const parse = (r: TRowProps[]): TRowProps[] => {
+const fillRowIdIfEmpty = (r: TRowProps[]): TRowProps[] => {
     return r.map(r => ({ identifier: v6(), ...r }));
 };
+
 const col = ref(null as null | number);
 const reverse = ref(false);
 const manageHeaderCellClick = (column: number, cellId: string) => {
@@ -62,7 +63,7 @@ const order = computed(() => {
 });
 
 // data
-const refRows = ref(parse(props.rows)) as Ref<TRowProps[]>;
+const refRows = ref(fillRowIdIfEmpty(props.rows)) as Ref<TRowProps[]>;
 const refHeader = ref(props.head) as Ref<THeaderProps>;
 const { css: cssRef, ...modifyCss } = useCssClassTranslator(props.css);
 
@@ -81,7 +82,7 @@ watch(
     () => props.rows,
     () => {
         refRows.value.length = 0;
-        refRows.value.push(...parse(props.rows));
+        refRows.value.push(...fillRowIdIfEmpty(props.rows));
     },
     { deep: true }
 );

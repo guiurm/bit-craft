@@ -7,7 +7,7 @@ import CDatatableRow from '@/components/datatable/CDatatableRow.vue';
 import { buildDatatableCell, buildDatatableRow, buildDatatableRows } from '@/components/datatable/datatableBuilders';
 import type { THeaderProps } from '@/components/datatable/datatableTypes';
 import MainLayout from '@/layouts/MainLayout.vue';
-import { nextTick, ref, type Ref } from 'vue';
+import { ref, type Ref } from 'vue';
 
 const head = ref({
     cols: 2,
@@ -16,7 +16,7 @@ const head = ref({
         {
             value: 'cell head',
             events: {
-                onCellClick: _e => {
+                onCellClick: () => {
                     // _e.stopPropagation();
                     console.log('header cell');
                 }
@@ -56,12 +56,14 @@ const row = ref(
     ])
 );
 
-setTimeout(() => {
+/**
+ setTimeout(() => {
     row.value.push({ cols: 2, cells: [{ value: 'anew value', events: { onCellClick: () => {} } }] });
     row.value[0].css = 'c';
     row.value[0].cells?.push({ value: 'a new cell' });
     nextTick();
 }, 3000);
+ */
 </script>
 <template>
     <main-layout>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { noop } from '@/globals';
+import { ChevronUpDownIcon } from '@heroicons/vue/24/outline';
 import { v6 } from 'uuid';
 import { computed, inject, onMounted, watch } from 'vue';
 import useCssClassTranslator from '../cssClassTranslator';
@@ -66,6 +67,7 @@ onMounted(() => {
             <template v-else>
                 <component v-bind="binds" :is="value?.node" />
             </template>
+            <ChevronUpDownIcon class="size-4 inline-block ml-1" />
         </slot>
     </span>
 </template>
