@@ -1,37 +1,56 @@
-## Recommended IDE Setup
+# BitCraft
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Welcome to **BitCraft**, a modern and minimalist library of Vue 3 components designed to simplify development while providing extensive customization options.
 
-## Type Support for `.vue` Imports in TS
+## 🚀 Features
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+-   **Drag and Drop:** Easily implement drag-and-drop functionality in your applications.
+-   **Dynamic Tables:** Create responsive tables to manage data efficiently.
+-   **Dropzones:** Effortlessly handle file uploads with customizable drop zones.
+-   **Collapses & Accordions:** Organize content in a clean and user-friendly manner.
+-   **Modals:** Enhance user interactions with flexible modal components.
+-   **Composable Utilities:** Access powerful functions for reactive value handling, CSS parsing, click-outside detection, and more.
 
-## Project Setup
+## 🌱 Getting Started
 
-```sh
-npm install
-```
+1. **Installation**
+   To install BitCraft, use npm or yarn:
 
-### Compile and Hot-Reload for Development
+    ```bash
+    npm install bitcraft
+    ```
 
-```sh
-npm run dev
-```
+    or
 
-### Type-Check, Compile and Minify for Production
+    ```bash
+    yarn add bitcraft
+    ```
 
-```sh
-npm run build
-```
+2. **Installation**
+   Usage Import the components you need into your Vue application:
+    ```bash
+     import { ... } from 'bitcraft';
+    ```
+3. Customization Tailwind CSS utility classes allow for easy customization of each component to fit your design needs.
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## 📚 Documentation
 
-```sh
-npm run test:unit
-```
+<!-- Please refer to the documentation for detailed usage instructions, examples, and API references. Coming soon! -->
 
-### Lint with [ESLint](https://eslint.org/)
+Cooming soon!
 
-```sh
-npm run lint
-```
+## 🤝 Contributing
+
+Contributions are welcome! Please read the Contributing Guidelines for details on how to get involved.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+<!--For inquiries, please reach out to [guiurm@gmail.com].-->
+
+<hr/>
+
+Thank you for choosing BitCraft! We hope it empowers your development journey and enhances your projects.
