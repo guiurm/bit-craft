@@ -32,6 +32,11 @@ const router = createRouter({
             path: '/dt',
             name: 'datatable',
             component: () => import('../views/DatatableView.vue')
+        },
+        {
+            path: '/toast',
+            name: 'toast',
+            component: () => import('../views/ToastsView.vue')
         }
     ]
 });
