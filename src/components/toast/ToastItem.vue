@@ -11,6 +11,7 @@ watch(
     () => props.modelValue,
     (n, o) => {
         visibleR.value = n;
+
         if (n !== o) {
             clearInterval(counter);
             startCounter();
@@ -27,9 +28,9 @@ const close = () => {
 const progress = ref('100%');
 let counter = 0;
 let startTime = 0;
-const startCounter = () => {
+const startCounter = (datetimeStart: number = Date.now()) => {
     if (props.liveTime !== -1) {
-        startTime = Date.now();
+        startTime = datetimeStart;
 
         counter = setInterval(() => {
             const currentTime = Date.now();
@@ -45,6 +46,15 @@ const startCounter = () => {
     }
 };
 
+const mouseEvents = {
+    onmouseenter: () => {
+        clearInterval(counter);
+    },
+    onMouseleave: () => {
+        const diff = (props.liveTime * parseInt(progress.value.replace('%', ''))) / 100;
+        startCounter(Date.now() - diff);
+    }
+};
 onMounted(startCounter);
 </script>
 <template>
@@ -52,7 +62,8 @@ onMounted(startCounter);
         <div
             v-if="visibleR"
             class="relative overflow-hidden flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
-            role="alert">
+            role="alert"
+            v-bind="mouseEvents">
             <div
                 class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
                 <svg

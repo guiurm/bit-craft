@@ -12,6 +12,6 @@ const toggle = () => {
     <main-layout>
         {{ show }}
         <div class="btn" @click="toggle">toggle</div>
-        <toast-item :live-time="3000" v-model="show"> Some message in toast</toast-item>
+        <toast-item :live-time="3000" :show-life-time="true" v-model="show"> Some message in toast</toast-item>
     </main-layout>
 </template>
