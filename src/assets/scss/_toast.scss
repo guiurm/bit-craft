@@ -1,0 +1,23 @@
+.toast {
+    &-item {
+        @apply px-4 py-3 mb-4;
+        &--top-right {
+            @apply top-0 right-0;
+        }
+        &--top-center {
+            @apply top-0 right-1/2 translate-x-1/2;
+        }
+        &--top-left {
+            @apply top-0 left-0;
+        }
+        &--bottom-right {
+            @apply bottom-0 right-0;
+        }
+        &--bottom-center {
+            @apply bottom-0 right-1/2 translate-x-1/2;
+        }
+        &--bottom-left {
+            @apply bottom-0 left-0;
+        }
+    }
+}
