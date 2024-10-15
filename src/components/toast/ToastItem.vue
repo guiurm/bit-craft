@@ -1,18 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
-import type { TCss } from '../cssClassTranslator';
 import useCssClassTranslator from '../cssClassTranslator';
+import type { TToastEmits, TToastItemProps } from './ToastTypes';
 
 // props
-type TProps = {
-    message?: string;
-    liveTime?: number;
-    showLifeTime?: boolean;
-    modelValue?: boolean;
-    css?: TCss;
-    target?: 'document' | 'parent';
-};
-const props = withDefaults(defineProps<TProps>(), {
+const props = withDefaults(defineProps<TToastItemProps>(), {
     liveTime: -1,
     showLifeTime: true,
     modelValue: true,
@@ -21,8 +13,7 @@ const props = withDefaults(defineProps<TProps>(), {
 });
 
 // emits
-type TEmits = { 'update:modelValue': [n: boolean]; close: [] };
-const emits = defineEmits<TEmits>();
+const emits = defineEmits<TToastEmits>();
 
 // data
 const visibleR = ref(props.modelValue);

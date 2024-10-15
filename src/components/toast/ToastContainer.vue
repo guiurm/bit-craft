@@ -1,19 +1,13 @@
 <script setup lang="ts">
+import { createToast, type ToastItemVNodeList } from '@/composables/toastGenerator';
 import { v6 } from 'uuid';
-import { onMounted, watch } from 'vue';
-import type { TCss } from '../cssClassTranslator';
+import { onMounted, ref, watch } from 'vue';
 import useCssClassTranslator from '../cssClassTranslator';
-import ToastItem from './ToastItem.vue';
+import type { TToastContainerPosition, TToastContainerProps } from './ToastTypes';
+import useToastStore from './toastStore';
 
 // props
-type TToastPosition = `${'top' | 'bottom'}-${'right' | 'center' | 'left'}`;
-type TProps = {
-    css?: TCss;
-    position?: TToastPosition;
-    target?: 'document' | 'parent';
-    id?: string;
-};
-const props = withDefaults(defineProps<TProps>(), {
+const props = withDefaults(defineProps<TToastContainerProps>(), {
     position: 'top-right',
     css: () => [],
     target: 'document'
@@ -22,15 +16,16 @@ const props = withDefaults(defineProps<TProps>(), {
 // data
 const { css: cssR, ...modifyCss } = useCssClassTranslator(props.css);
 const uuid = props.id ?? v6();
+const items = ref([]) as ToastItemVNodeList;
 
 // actions
-const checkPositionValue = (p: string): p is TToastPosition => {
+const checkPositionValue = (p: string): p is TToastContainerPosition => {
     const regex = /^(top|bottom)-(right|center|left)$/;
     return regex.test(p);
 };
 const translatePosition = (p: string) => {
     if (!checkPositionValue(p)) throw new Error(`Invalid prop type for 'position' as '${p}'`);
-    return `toast-container--${p}` as `toast-container--${TToastPosition}`;
+    return `toast-container--${p}` as `toast-container--${TToastContainerPosition}`;
 };
 
 // watchers
@@ -46,11 +41,17 @@ onMounted(() => {
         [translatePosition(props.position)]: true,
         'toast-container': true
     });
+    useToastStore().registerContainer(uuid, items);
+
+    let counter = 1;
+    setInterval(() => {
+        createToast({ message: 'Some toast message' + counter, liveTime: 1000 });
+        counter++;
+    }, 500);
 });
 </script>
 <template>
     <div :class="cssR">
-        <toast-item target="document" />
-        <toast-item target="document" />
+        <component :is="toastItem" v-for="(toastItem, index) in items" :key="index" />
     </div>
 </template>

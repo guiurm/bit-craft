@@ -1,11 +1,12 @@
+import type { ToastItemVNodeList } from '@/composables/toastGenerator';
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
-import ToastItem from './ToastItem.vue';
+
 const useToastStore = defineStore('store', () => {
-    const stores = ref(new Map<string, Ref<(typeof ToastItem)[]>>()) as Ref<Map<string, Ref<(typeof ToastItem)[]>>>;
+    const stores = ref(new Map<string, ToastItemVNodeList>()) as Ref<Map<string, ToastItemVNodeList>>;
     const first = ref(null) as Ref<null | string>;
 
-    const registerContainer = (id: string, items: Ref<(typeof ToastItem)[]>) => {
+    const registerContainer = (id: string, items: ToastItemVNodeList) => {
         if (stores.value.size === 0) first.value = id;
         stores.value.set(id, items);
     };
@@ -16,7 +17,7 @@ const useToastStore = defineStore('store', () => {
 
     const getList = (id = first.value) => {
         if (!id) return null;
-        return stores.value.get(id) ?? (null as null | Ref<(typeof ToastItem)[]>);
+        return stores.value.get(id) ?? (null as null | ToastItemVNodeList);
     };
 
     return {
@@ -27,10 +28,3 @@ const useToastStore = defineStore('store', () => {
 });
 
 export default useToastStore;
-
-const createToas = (id?: string) => {
-    const store = useToastStore();
-    const items = store.getList(id);
-
-    if (!items) throw new Error('Not found');
-};
