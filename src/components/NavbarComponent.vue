@@ -23,6 +23,11 @@
                 class="mx-2 transition duration-300 ease-in-out transform hover:scale-110 hover:text-custom-orange-bright">
                 Datatable
             </router-link>
+            <router-link
+                to="toast"
+                class="mx-2 transition duration-300 ease-in-out transform hover:scale-110 hover:text-custom-orange-bright">
+                Toast
+            </router-link>
         </nav>
     </header>
 </template>

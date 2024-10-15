@@ -42,7 +42,9 @@ export const translateCss = (conf: TCss) => {
         conf.forEach(cCss => (css[cCss] = true));
     } else if (typeof conf === 'object') {
         for (const cCss in conf) {
-            css[cCss] = conf[cCss];
+            cCss.split(' ').forEach(c => {
+                css[c] = conf[cCss];
+            });
         }
     }
     return css;
