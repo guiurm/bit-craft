@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 import ToastContainer from '@/components/toast/ToastContainer.vue';
-import ToastItem from '@/components/toast/ToastItem.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import { ref } from 'vue';
 
-const show = ref(true);
-const toggle = () => {
-    show.value = true;
-};
+const v = ref('v');
+const add = () => {};
 </script>
 <template>
     <main-layout>
-        {{ show }}
-        <div class="btn" @click="toggle">toggle</div>
-        <toast-item :live-time="3000" :show-life-time="true" v-model="show"> Some message in toast</toast-item>
-        <toast-container />
+        <div class="flex my-1">
+            <input v-model="v" type="text" />
+            <div class="btn" @click="add">Añadir</div>
+        </div>
+        <div class="relative">
+            <toast-container position="top-right" />
+        </div>
     </main-layout>
 </template>

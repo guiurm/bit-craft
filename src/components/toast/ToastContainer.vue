@@ -1,20 +1,56 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { v6 } from 'uuid';
+import { onMounted, watch } from 'vue';
+import type { TCss } from '../cssClassTranslator';
+import useCssClassTranslator from '../cssClassTranslator';
 import ToastItem from './ToastItem.vue';
 
-const positions = ['top-right', 'top-center', 'top-left', 'bottom-right', 'bottom-center', 'bottom-left'] as const;
-const positionIndex = ref(0);
-const position = computed(() => positions[positionIndex.value]);
+// props
+type TToastPosition = `${'top' | 'bottom'}-${'right' | 'center' | 'left'}`;
+type TProps = {
+    css?: TCss;
+    position?: TToastPosition;
+    target?: 'document' | 'parent';
+    id?: string;
+};
+const props = withDefaults(defineProps<TProps>(), {
+    position: 'top-right',
+    css: () => [],
+    target: 'document'
+});
 
-let a = setInterval(() => {
-    if (positionIndex.value === positions.length - 1) clearInterval(a);
-    positionIndex.value = positionIndex.value === positions.length - 1 ? 0 : positionIndex.value + 1;
-}, 2000);
+// data
+const { css: cssR, ...modifyCss } = useCssClassTranslator(props.css);
+const uuid = props.id ?? v6();
+
+// actions
+const checkPositionValue = (p: string): p is TToastPosition => {
+    const regex = /^(top|bottom)-(right|center|left)$/;
+    return regex.test(p);
+};
+const translatePosition = (p: string) => {
+    if (!checkPositionValue(p)) throw new Error(`Invalid prop type for 'position' as '${p}'`);
+    return `toast-container--${p}` as `toast-container--${TToastPosition}`;
+};
+
+// watchers
+watch(
+    () => props.position,
+    (n, o) => modifyCss.addCss({ [translatePosition(o)]: false, [translatePosition(n)]: true })
+);
+
+// life-cicle
+onMounted(() => {
+    modifyCss.addCss({
+        [props.target === 'document' ? 'toast-container--fixed' : 'toast-container--absolute']: true,
+        [translatePosition(props.position)]: true,
+        'toast-container': true
+    });
+});
 </script>
 <template>
-    <div class="relative">
-        {{ position }}
-        <toast-item target="document" :position="position" />
-        <toast-item target="document" :position="position" />
+    <div :class="cssR">
+        <toast-item target="document" />
+        <toast-item target="document" />
     </div>
 </template>
