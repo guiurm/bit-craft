@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { XMarkIcon } from '@heroicons/vue/24/outline';
+import { CheckCircleIcon } from '@heroicons/vue/24/solid';
 import { onMounted, ref, watch } from 'vue';
 import useCssClassTranslator from '../cssClassTranslator';
 import type { TToastEmits, TToastItemProps } from './ToastTypes';
@@ -8,8 +10,7 @@ const props = withDefaults(defineProps<TToastItemProps>(), {
     liveTime: -1,
     showLifeTime: true,
     modelValue: true,
-    css: () => [],
-    target: 'document'
+    css: () => []
 });
 
 // emits
@@ -26,6 +27,7 @@ let startTime = 0;
 const close = () => {
     visibleR.value = false;
     emits('update:modelValue', false);
+    emits('close');
     clearInterval(counter as number);
     counter = -1;
 };
@@ -72,6 +74,7 @@ watch(
     () => props.css,
     n => modifyCss.addCss(n)
 );
+
 // life-cicle
 onMounted(() => {
     modifyCss.addCss('toast-item');
@@ -88,20 +91,16 @@ onMounted(() => {
             v-bind="mouseEvents">
             <div
                 class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-                <svg
-                    class="w-5 h-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                </svg>
-                <span class="sr-only">Check icon</span>
+                <check-circle-icon class="size-5" />
             </div>
-            <div class="ms-3 text-sm font-normal">
+            <div class="mx-3 text-sm font-normal">
                 <slot>
-                    {{ message }}
+                    <template v-if="typeof message === 'string'">
+                        {{ message }}
+                    </template>
+                    <template v-else>
+                        <component :is="message" />
+                    </template>
                 </slot>
             </div>
             <button
@@ -110,20 +109,7 @@ onMounted(() => {
                 data-dismiss-target="#toast-success"
                 aria-label="Close"
                 @click="close">
-                <span class="sr-only">Close</span>
-                <svg
-                    class="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 14 14">
-                    <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
+                <x-mark-icon class="size-5" />
             </button>
             <div
                 v-if="showLifeTime"

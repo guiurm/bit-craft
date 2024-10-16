@@ -1,10 +1,37 @@
 <script lang="ts" setup>
 import ToastContainer from '@/components/toast/ToastContainer.vue';
+import { createToast } from '@/composables/toastGenerator';
 import MainLayout from '@/layouts/MainLayout.vue';
-import { ref } from 'vue';
+import { h, ref } from 'vue';
 
 const v = ref('v');
-const add = () => {};
+let showLifeTime = true;
+const add = () => {
+    if (v.value === '') return;
+    createToast({
+        message: h('div', v.value),
+        liveTime: 10000,
+        showLifeTime,
+        onClose: () => {
+            console.log('from view');
+        }
+    });
+    showLifeTime = true; //!showLifeTime;
+
+    createToast(
+        {
+            message: h('div', v.value),
+            liveTime: -1,
+            showLifeTime,
+            onClose: () => {
+                console.log('from view 2');
+            }
+        },
+        'qqqtest'
+    );
+
+    v.value = '';
+};
 </script>
 <template>
     <main-layout>
@@ -14,6 +41,10 @@ const add = () => {};
         </div>
         <div class="relative">
             <toast-container position="top-right" />
+        </div>
+
+        <div class="size-96 bg-slate-200 relative">
+            <toast-container position="bottom-left" target="parent" id="qqqtest" />
         </div>
     </main-layout>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createToast, type ToastItemVNodeList } from '@/composables/toastGenerator';
+import { type ToastItemVNodeList } from '@/composables/toastGenerator';
 import { v6 } from 'uuid';
 import { onMounted, ref, watch } from 'vue';
 import useCssClassTranslator from '../cssClassTranslator';
@@ -42,16 +42,11 @@ onMounted(() => {
         'toast-container': true
     });
     useToastStore().registerContainer(uuid, items);
-
-    let counter = 1;
-    setInterval(() => {
-        createToast({ message: 'Some toast message' + counter, liveTime: 1000 });
-        counter++;
-    }, 500);
 });
 </script>
 <template>
+    {{ items.length }}
     <div :class="cssR">
-        <component :is="toastItem" v-for="(toastItem, index) in items" :key="index" />
+        <component :is="toastItem" v-for="[uuid, toastItem] in items" :key="uuid" />
     </div>
 </template>
