@@ -2,7 +2,7 @@
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import { CheckCircleIcon } from '@heroicons/vue/24/solid';
 import { onMounted, ref, watch } from 'vue';
-import useCssClassTranslator from '../cssClassTranslator';
+import useCssClassTranslator from '../../composables/cssClassTranslator';
 import type { TToastEmits, TToastItemProps } from './ToastTypes';
 
 // props

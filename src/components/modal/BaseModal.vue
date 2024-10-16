@@ -2,7 +2,7 @@
 import { onClickOutside } from '@/composables/onClickOutside';
 import type { TNoppNoArgs } from '@/globals';
 import { computed, onMounted, onUnmounted, ref, watch, type Ref, type StyleValue } from 'vue';
-import useCssClassTranslator from '../cssClassTranslator';
+import useCssClassTranslator from '../../composables/cssClassTranslator';
 
 export type TBaseModalProps = {
     visible?: boolean;

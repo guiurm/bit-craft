@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@/composables/onClickOutside';
 import { onMounted, onUnmounted, ref, watch, type Ref } from 'vue';
-import useCssClassTranslator from '../cssClassTranslator';
+import useCssClassTranslator from '../../composables/cssClassTranslator';
 
 type TProps = {
     // true to hide

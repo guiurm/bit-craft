@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TCss } from '@/components/cssClassTranslator';
+import type { TCss } from '@/composables/cssClassTranslator';
 import type { useDragAndDropItem } from '@/composables/dragAndDrop';
 import { computed } from 'vue';
 

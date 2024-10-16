@@ -1,6 +1,6 @@
 import { noop } from '@/globals';
 import { inject, provide, type Component, type VNode } from 'vue';
-import type { TCss } from '../cssClassTranslator';
+import type { TCss } from '../../composables/cssClassTranslator';
 
 export type TRowProps = {
     identifier?: string;

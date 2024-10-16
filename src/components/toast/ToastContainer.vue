@@ -2,7 +2,7 @@
 import { type ToastItemVNodeList } from '@/composables/toastGenerator';
 import { v6 } from 'uuid';
 import { onMounted, ref, watch } from 'vue';
-import useCssClassTranslator from '../cssClassTranslator';
+import useCssClassTranslator from '../../composables/cssClassTranslator';
 import type { TToastContainerPosition, TToastContainerProps } from './ToastTypes';
 import useToastStore from './toastStore';
 

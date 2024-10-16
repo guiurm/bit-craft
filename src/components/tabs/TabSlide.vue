@@ -10,7 +10,7 @@ import {
     type Ref,
     type VNode
 } from 'vue';
-import useCssClassTranslator, { type TCss } from '../cssClassTranslator';
+import useCssClassTranslator, { type TCss } from '../../composables/cssClassTranslator';
 import { TAB_ADD, TAB_REMOVE, TAB_SET_ACTIVE, type TTabInjections, type TTabSlideData } from './TabGlobals';
 
 const props = withDefaults(

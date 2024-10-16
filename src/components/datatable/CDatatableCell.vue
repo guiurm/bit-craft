@@ -2,7 +2,7 @@
 import { noop } from '@/globals';
 import { v6 } from 'uuid';
 import { computed, inject, onMounted, watch } from 'vue';
-import useCssClassTranslator from '../cssClassTranslator';
+import useCssClassTranslator from '../../composables/cssClassTranslator';
 import { cellInjectFromRow, type TCellProps } from './datatableTypes';
 
 // props

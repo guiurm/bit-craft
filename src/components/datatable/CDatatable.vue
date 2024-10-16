@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { v6 } from 'uuid';
 import { computed, provide, ref, watch, type Ref } from 'vue';
-import useCssClassTranslator from '../cssClassTranslator';
+import useCssClassTranslator from '../../composables/cssClassTranslator';
 import CDatatableHeader from './CDatatableHeader.vue';
 import CDatatableRow from './CDatatableRow.vue';
 import {

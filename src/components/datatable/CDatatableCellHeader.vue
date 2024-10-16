@@ -3,7 +3,7 @@ import { noop } from '@/globals';
 import { ChevronUpDownIcon } from '@heroicons/vue/24/outline';
 import { v6 } from 'uuid';
 import { computed, inject, onMounted, watch } from 'vue';
-import useCssClassTranslator from '../cssClassTranslator';
+import useCssClassTranslator from '../../composables/cssClassTranslator';
 import { cellInjectFromHeader, type TCellProps } from './datatableTypes';
 
 // props

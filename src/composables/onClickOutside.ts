@@ -31,9 +31,7 @@ export const onClickOutside = <T extends HTMLElement>(
     };
 
     const listener = (event: MouseEvent) => {
-        if (!shouldIgnore(event)) {
-            handler(event);
-        }
+        if (!shouldIgnore(event)) handler(event);
     };
 
     return useDomNativeEventManager(document).on('click', listener, { capture });
