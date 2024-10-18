@@ -1,18 +1,33 @@
 {
     "name": "bit-craft",
     "version": "1.0.0-alpha.1",
-    "private": true,
+    "private": false,
     "type": "module",
+    "module": "./dist/main.js",
+    "types": "./dist/main.d.ts",
+    "files": [
+        "dist",
+        "package.json"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/main.js"
+        }
+    },
     "scripts": {
         "dev": "vite",
         "dev-host": "vite --host",
-        "build": "run-p type-check \"build-only {@}\" --",
+        "build": "run-p type-check \"build-only {@}\" -- && run-p build:styles",
+        "build-only": "vite build",
+        "build:styles": "npx sass ./src/assets/scss/main.scss ./dist/output.css && npx tailwindcss build -i ./dist/output.css -o ./dist/output.css -m",
         "preview": "vite preview",
         "test:unit": "vitest",
-        "build-only": "vite build",
         "type-check": "vue-tsc --build --force",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "format": "prettier --write src/"
+    },
+    "peerDependencies": {
+        "vue": "^3.4.21"
     },
     "dependencies": {
         "@heroicons/vue": "^2.1.5",
@@ -44,6 +59,7 @@
         "tailwindcss": "^3.4.3",
         "typescript": "~5.4.0",
         "vite": "^5.2.8",
+        "vite-plugin-dts": "^4.2.4",
         "vitest": "^1.4.0",
         "vue-tsc": "^2.0.11"
     }
