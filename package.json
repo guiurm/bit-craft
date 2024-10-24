@@ -1,7 +1,10 @@
 {
-    "name": "bit-craft",
+    "name": "@guiurm/bit-craft",
     "version": "1.0.0-alpha.1",
     "private": false,
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
     "type": "module",
     "module": "./dist/main.js",
     "types": "./dist/main.d.ts",
