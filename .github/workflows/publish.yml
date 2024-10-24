@@ -24,7 +24,7 @@ jobs:
         run: npm run build  # Asegúrate de que este comando exista en tu package.json
 
       - name: Check token
-        run: echo "Token is set: $NODE_AUTH_TOKEN"  # Verifica que el token esté definido
+        run: echo "Token is set $NODE_AUTH_TOKEN"  # Verifica que el token esté definido
         env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN }}  # Usa el token que configuraste
 
