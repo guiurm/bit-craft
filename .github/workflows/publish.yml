@@ -1,0 +1,29 @@
+name: Publish Package
+
+on:
+  workflow_dispatch:  # Permite ejecutar la acción manualmente
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Cambiado a Node.js 20
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build  # Asegúrate de que este comando exista en tu package.json
+
+      - name: Publish package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.TOKEN }}  # Utiliza el token que configuraste
+        run: npm publish
