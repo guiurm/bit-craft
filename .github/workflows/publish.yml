@@ -14,7 +14,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'  # Cambiado a Node.js 20
+          node-version: '20'  # Usa Node.js 20
           registry-url: 'https://npm.pkg.github.com/'
 
       - name: Install dependencies
@@ -22,6 +22,11 @@ jobs:
 
       - name: Build project
         run: npm run build  # Asegúrate de que este comando exista en tu package.json
+
+      - name: Check token
+        run: echo "Token is set: $NODE_AUTH_TOKEN"  # Verifica que el token esté definido
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.TOKEN }}  # Usa el token que configuraste
 
       - name: Publish package
         env:
