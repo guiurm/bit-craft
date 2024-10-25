@@ -58,7 +58,7 @@ onMounted(() => {
 });
 </script>
 <template>
-    <span v-bind="events" class="w-full" :class="cssRef" :style="styleBind">
+    <span v-bind="events" class="bc-datatable-cell" :class="cssRef" :style="styleBind">
         <slot>
             <template v-if="typeof value === 'string' || typeof value === 'number'">
                 {{ value }}

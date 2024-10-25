@@ -92,7 +92,7 @@ watch(
 );
 </script>
 <template>
-    <div class="w-full h-full" :class="cssRef">
+    <div class="bc-datatable-container" :class="cssRef">
         <slot name="header">
             <c-datatable-header
                 @cell-click="manageHeaderCellClick"

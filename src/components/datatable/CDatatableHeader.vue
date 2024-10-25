@@ -82,7 +82,7 @@ onMounted(() => {
 <template>
     <div
         v-bind="events"
-        class="w-full grid"
+        class="bc-datatable-head"
         :class="cssRef"
         :style="{ 'grid-template-columns': customTemplateColumn ?? colsComp }">
         <slot>
