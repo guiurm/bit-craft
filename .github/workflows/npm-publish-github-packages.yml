@@ -1,4 +1,4 @@
-name: Node.js Package
+name: Publish-github-packages
 
 on:
   workflow_dispatch:
@@ -12,19 +12,13 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: npm run build # Asegúrate de tener este paso
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: dist # O la ruta donde se genera la build
 
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       packages: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,10 +26,7 @@ jobs:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
-      - name: Download production artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: dist
+      - run: npm run build
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
