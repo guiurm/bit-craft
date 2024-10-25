@@ -3,7 +3,7 @@
     "version": "1.0.0-alpha.1",
     "private": false,
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com/"
+        "registry": "https://npm.pkg.github.com/@guiurm"
     },
     "type": "module",
     "module": "./dist/main.js",
@@ -14,7 +14,8 @@
     ],
     "exports": {
         ".": {
-            "import": "./dist/main.js"
+            "import": "./dist/main.js",
+            "require": "./dist/main.umd.js"
         }
     },
     "scripts": {

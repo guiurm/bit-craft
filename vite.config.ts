@@ -11,7 +11,7 @@ export default defineConfig({
         emptyOutDir: false,
         lib: {
             entry: path.resolve(__dirname, "src/index.ts"),
-            formats: ["es"],
+            formats: ["es", "umd"],
             name: "bit-craft",
             fileName: "main",
         },
