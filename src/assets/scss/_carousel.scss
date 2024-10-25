@@ -1,0 +1,19 @@
+.bc {
+    &-carousel {
+        &-container {
+            @apply flex justify-between w-full mx-auto items-center;
+        }
+
+        &-btn {
+            @apply bg-slate-400 p-2 rounded-full shadow-md size-9 cursor-pointer;
+        }
+
+        &-content {
+            @apply px-4 flex flex-row w-full relative overflow-hidden;
+        }
+
+        &-card {
+            @apply w-full flex-shrink-0 absolute;
+        }
+    }
+}

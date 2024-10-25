@@ -64,7 +64,7 @@ onUnmounted(() => subscriber.clear());
 </script>
 <template>
     <transition :name="name">
-        <div ref="root" v-show="position === 'visible'" class="w-full flex-shrink-0 absolute">
+        <div ref="root" v-show="position === 'visible'" class="bc-carousel-card">
             <slot />
         </div>
     </transition>

@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import type { TNoppNoArgs } from '@/globals';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/24/outline';
 import { onMounted, provide } from 'vue';
 import { useCarousel } from './carouselComposable';
 import { CARROUSEL_ACTIONS, type TCarrouselProvideCard } from './carouselConstants';
 
 defineSlots<{
-    default(): void;
+    default(props: { currentIndex: number; totalSize: number; prev: TNoppNoArgs; next: TNoppNoArgs }): void;
     prev(props: { prev: TNoppNoArgs }): void;
     next(props: { next: TNoppNoArgs }): void;
 }>();
@@ -29,22 +30,15 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="flex justify-end">
-        <span class="text-primary-500">
-            <span class="mr-1">{{ currentIndex + 1 }}</span>
-            /
-            <span class="ml-1">{{ itemsList.length }}</span>
-        </span>
-    </div>
-    <div class="flex justify-between itemsList-center w-full mx-auto">
+    <div class="bc-carousel-container">
         <slot name="prev" v-bind="{ prev }">
-            <button @click="prev" class="bg-white p-2 rounded-full shadow-md">&lt;</button>
+            <chevron-left-icon @click="prev" class="bc-carousel-btn" />
         </slot>
-        <div class="flex flex-row w-full relative overflow-hidden" :style="height">
-            <slot />
+        <div class="bc-carousel-content" :style="height">
+            <slot v-bind="{ currentIndex, totalSize: itemsList.length, prev, next }" />
         </div>
         <slot name="next" v-bind="{ next }">
-            <button @click="next" class="bg-white p-2 rounded-full shadow-md">&gt;</button>
+            <chevron-right-icon @click="next" class="bc-carousel-btn" />
         </slot>
     </div>
 </template>
