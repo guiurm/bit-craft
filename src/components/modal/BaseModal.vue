@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@/composables/onClickOutside';
 import type { TNoppNoArgs } from '@/globals';
-import { computed, onMounted, onUnmounted, ref, watch, type Ref, type StyleValue } from 'vue';
+import { onMounted, onUnmounted, ref, watch, type Ref, type StyleValue } from 'vue';
 import useCssClassTranslator from '../../composables/cssClassTranslator';
 
 export type TBaseModalProps = {
@@ -36,7 +36,7 @@ const props = withDefaults(
 //values
 const modalDOM = ref() as Ref<HTMLDivElement>;
 const visibleRef = ref(props.visible);
-const isVisible = computed(() => visibleRef.value === true);
+//const isVisible = computed(() => visibleRef.value === true);
 const { css, ...modifyCss } = useCssClassTranslator(props.modalCss);
 
 //emits
@@ -66,7 +66,7 @@ const open = () => {
 let clearOutclick = (): void => void 0;
 
 //slots
-const slotData = { close, accept, cancel, open, isVisible };
+const slotData = { close, accept, cancel, open, isVisible: visibleRef };
 export type TBaseModalActions = typeof slotData;
 defineSlots<{
     header: (data: TBaseModalActions) => {};
@@ -78,9 +78,11 @@ defineSlots<{
 watch(
     () => props.visible,
     n => {
+        visibleRef.value = n;
         if (n) emit('open');
         else emit('close');
-    }
+    },
+    { immediate: true }
 );
 watch(
     () => props.target,
@@ -106,7 +108,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
-    <div v-if="isVisible" :class="css" ref="modalDOM">
+    <div v-if="visibleRef" :class="css" ref="modalDOM">
         <slot v-bind="slotData" name="header" />
         <slot v-bind="slotData" name="body" />
         <slot v-bind="slotData" name="footer" />
