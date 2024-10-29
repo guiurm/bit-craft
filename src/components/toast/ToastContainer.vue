@@ -45,7 +45,6 @@ onMounted(() => {
 });
 </script>
 <template>
-    {{ items.length }}
     <div :class="cssR">
         <component :is="toastItem" v-for="[uuid, toastItem] in items" :key="uuid" />
     </div>
