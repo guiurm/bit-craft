@@ -5,7 +5,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
 </script>
 <template>
     <main-layout>
-        <tab-menu :direction="'line'">
+        <tab-menu :direction="'col'">
             <tab-slide :header="'User'">
                 <ul>
                     <li>Manu</li>
@@ -21,5 +21,6 @@ import MainLayout from '@/layouts/MainLayout.vue';
                 <div class="btn">btn</div>
             </tab-slide>
         </tab-menu>
+        qqq
     </main-layout>
 </template>

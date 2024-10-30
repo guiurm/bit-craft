@@ -1,15 +1,5 @@
 <script setup lang="ts">
-import {
-    computed,
-    inject,
-    onBeforeMount,
-    onBeforeUnmount,
-    ref,
-    watch,
-    type Component,
-    type Ref,
-    type VNode
-} from 'vue';
+import { inject, onBeforeMount, onBeforeUnmount, ref, watch, type Component, type Ref, type VNode } from 'vue';
 import useCssClassTranslator, { type TCss } from '../../composables/cssClassTranslator';
 import { TAB_ADD, TAB_REMOVE, TAB_SET_ACTIVE, type TTabInjections, type TTabSlideData } from './TabGlobals';
 
@@ -18,10 +8,10 @@ const props = withDefaults(
         header: string | { component: Component | (() => VNode); binds: Record<string, any> };
         id?: string;
         active?: boolean;
-        transitionName?: string;
+        //transitionName?: string;
         class?: TCss;
     }>(),
-    { active: false, transitionName: 'fade', class: '' }
+    { active: false, /*transitionName: 'fade',*/ class: '' }
 );
 const emits = defineEmits<{ clickTab: []; show: []; hide: [] }>();
 
@@ -56,12 +46,14 @@ watch(
         if (n) setTab(id);
     }
 );
-const transition = computed(() => props.transitionName);
+// const transition = computed(() => props.transitionName);
 </script>
 <template>
-    <transition :name="transition" class="absolute top-0">
-        <div v-if="tabR.active" :class="css">
-            <slot />
-        </div>
-    </transition>
+    <!--
+        <transition :name="transition" class="absolute top-0">
+            <transition :name="transition"> </transition>
+    -->
+    <div v-if="tabR.active" :class="css">
+        <slot />
+    </div>
 </template>
