@@ -32,12 +32,6 @@ const dragOverItem = (eve: DragEvent, item: V) => {
 </script>
 
 <template>
-    {{ seleted }}
-    <br />
-    <pre>
-            {{ items }}
-        </pre
-    >
     <div class="container">
         <div v-bind="useDragAndDropItem()" class="drag-container">
             <drag-and-drop-item

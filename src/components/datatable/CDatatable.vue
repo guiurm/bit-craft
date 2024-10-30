@@ -111,5 +111,4 @@ watch(
                 :custom-template-column="customTemplateColumn" />
         </slot>
     </div>
-    {{ order }}
 </template>
