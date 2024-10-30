@@ -10,6 +10,8 @@ export type TToastItemProps = {
     modelValue?: boolean;
     css?: TCss;
     id?: string;
+    type?: 'success' | 'warning' | 'error';
+    showIcon?: boolean;
     // target?: 'document' | 'parent';
 };
 export type TToastEmits = { 'update:modelValue': [n: boolean]; close: [] };

@@ -18,10 +18,27 @@ const add = () => {
     });
     showLifeTime = true; //!showLifeTime;
 
+    //
+    createToast({
+        message: h('div', v.value),
+        liveTime: -1,
+        showLifeTime,
+        type: 'warning'
+    });
+    createToast({
+        message: h('div', v.value),
+        liveTime: 30000,
+        showLifeTime,
+        type: 'error'
+    });
+    //
+
     createToast(
         {
             message: h('div', v.value),
             liveTime: -1,
+            type: 'warning',
+            showIcon: false,
             showLifeTime,
             onClose: () => {
                 console.log('from view 2');
