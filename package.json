@@ -1,6 +1,6 @@
 {
     "name": "@guiurm/bit-craft",
-    "version": "1.0.0-alpha.03",
+    "version": "1.0.0-alpha.04",
     "private": false,
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/@guiurm"
