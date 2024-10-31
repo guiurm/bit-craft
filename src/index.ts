@@ -88,6 +88,7 @@ export type * from './composables/toastGenerator';
 
 export { default as CarouselCard } from './components/carousel/CarouselCard.vue';
 export { default as CarouselContainer } from './components/carousel/CarouselContainer.vue';
+export { default as CollapseComponent } from './components/collape/CollapseComponent.vue';
 export { default as CDatatable } from './components/datatable/CDatatable.vue';
 export { default as CDatatableCell } from './components/datatable/CDatatableCell.vue';
 export { default as CDatatableCellHeader } from './components/datatable/CDatatableCellHeader.vue';
