@@ -28,7 +28,6 @@ const fillRowIdIfEmpty = (r: TRowProps[]): TRowProps[] => {
 const col = ref(null as null | number);
 const reverse = ref(false);
 const manageHeaderCellClick = (column: number, cellId: string) => {
-    console.log(column, cellId);
     if (col.value === column) {
         //col.value = null;
         reverse.value = !reverse.value;
@@ -45,8 +44,6 @@ const order = computed(() => {
             const cellA = (a.cells as TCellProps[])[col.value as number] as Required<TCellProps>;
 
             const cellB = (b.cells as TCellProps[])[col.value as number] as Required<TCellProps>;
-            console.log(cellA);
-            console.log(cellB);
             const cellAV =
                 typeof cellA.value === 'string' || typeof cellA.value === 'number'
                     ? cellA.value.toString()

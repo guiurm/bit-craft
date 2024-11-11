@@ -34,8 +34,6 @@ watch(
 
 // actions
 const toogle = () => {
-    console.log('a');
-
     isOpen.value = !isOpen.value;
     modifyCss.addCss({ hidden: !isOpen.value });
     emits('update:model-value', isOpen.value);

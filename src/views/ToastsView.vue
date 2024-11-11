@@ -12,9 +12,7 @@ const add = () => {
         message: h('div', v.value),
         liveTime: 10000,
         showLifeTime,
-        onClose: () => {
-            console.log('from view');
-        }
+        onClose: () => {}
     });
     showLifeTime = true; //!showLifeTime;
 

@@ -14,7 +14,6 @@ const dragStart = (eve: DragEvent, item: V) => {
     if (!eve.dataTransfer) return;
     eve.dataTransfer.dropEffect = 'move';
     eve.dataTransfer.effectAllowed = 'move';
-    //console.log('qqq');
     seleted.value = item;
 };
 const dragEnd = () => {
