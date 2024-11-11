@@ -94,7 +94,10 @@ export { default as CDatatableCell } from './components/datatable/CDatatableCell
 export { default as CDatatableCellHeader } from './components/datatable/CDatatableCellHeader.vue';
 export { default as CDatatableHeader } from './components/datatable/CDatatableHeader.vue';
 export { default as CDatatableRow } from './components/datatable/CDatatableRow.vue';
-export { default as DragableSortable } from './components/dragable/DragableSortable.vue';
+export { default as DraggableSortableContainer } from './components/dragable/DraggableSortableContainer.vue';
+export { default as DraggableSortableItem } from './components/dragable/DraggableSortableItem.vue';
+export { default as DraggableSortableItemShadow } from './components/dragable/DraggableSortableItemShadow';
+export { default as DraggableSortable } from './components/dragable/DraggableSortableOld.vue';
 export { default as DropdownComponent } from './components/dropdown/DropdownComponent.vue';
 export { default as BaseModal } from './components/modal/BaseModal.vue';
 export { default as StyledModal } from './components/modal/StyledModal.vue';
