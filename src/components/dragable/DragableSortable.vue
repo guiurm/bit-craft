@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import type { TRenderComponent } from '@/@core/types';
 import { useDragAndDropItem } from '@/composables/dragAndDrop';
 import DragAndDropItem from '@/views/DragAndDropItem.vue';
-import { type Component, ref, type VNode } from 'vue';
+import { ref } from 'vue';
 
-type V = number | string | Component | (() => VNode);
+type V = number | string | TRenderComponent;
 
 //items
 const props = defineProps<{ data: V[] }>();

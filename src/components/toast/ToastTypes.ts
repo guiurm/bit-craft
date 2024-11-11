@@ -1,10 +1,10 @@
+import type { TRenderComponent } from '@/@core/types';
 import type { TEventEmitterToBindings } from '@/@core/utils/UtilityTypes';
-import type { Component, VNode } from 'vue';
 import type { TCss } from '../../composables/cssClassTranslator';
 
 // item
 export type TToastItemProps = {
-    message?: string | Component | (() => VNode);
+    message?: string | TRenderComponent;
     liveTime?: number;
     showLifeTime?: boolean;
     modelValue?: boolean;

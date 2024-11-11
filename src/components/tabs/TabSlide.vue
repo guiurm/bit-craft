@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { inject, onBeforeMount, onBeforeUnmount, ref, watch, type Component, type Ref, type VNode } from 'vue';
+import type { TRenderComponent } from '@/@core/types';
+import { inject, onBeforeMount, onBeforeUnmount, ref, watch, type Ref } from 'vue';
 import useCssClassTranslator, { type TCss } from '../../composables/cssClassTranslator';
 import { TAB_ADD, TAB_REMOVE, TAB_SET_ACTIVE, type TTabInjections, type TTabSlideData } from './TabGlobals';
 
 const props = withDefaults(
     defineProps<{
-        header: string | { component: Component | (() => VNode); binds: Record<string, any> };
+        header: string | { component: TRenderComponent; binds: Record<string, any> };
         id?: string;
         active?: boolean;
         //transitionName?: string;

@@ -1,5 +1,6 @@
+import type { TRenderComponent } from '@/@core/types';
 import type { TNoppNoArgs } from '@/globals';
-import type { Component, Ref, VNode } from 'vue';
+import type { Ref } from 'vue';
 
 export const TAB_ADD = 'add_tab' as const;
 export const TAB_REMOVE = 'rm_tab' as const;
@@ -7,8 +8,9 @@ export const TAB_SET_ACTIVE = 'set_active_tab' as const;
 export const TAB_DIRECTION_LINE = 'line';
 export const TAB_DIRECTION_COL = 'col';
 
+export type TSlideHeader = string | { component: TRenderComponent; binds: Record<string, any> };
 export type TTabSlideData = {
-    header: string | { component: Component | (() => VNode); binds: Record<string, any> };
+    header: string | { component: TRenderComponent; binds: Record<string, any> };
     id: string;
     active: boolean;
     emit: { clickTab: TNoppNoArgs; show: TNoppNoArgs; hide: TNoppNoArgs };

@@ -1,5 +1,6 @@
+import type { TRenderComponent } from '@/@core/types';
 import { noop } from '@/globals';
-import { inject, provide, type Component, type VNode } from 'vue';
+import { inject, provide } from 'vue';
 import type { TCss } from '../../composables/cssClassTranslator';
 
 export type TRowProps = {
@@ -41,7 +42,7 @@ export type TCellProps = {
 } & (
     | {
           value?: {
-              node: Component | (() => VNode);
+              node: TRenderComponent;
               filterValue?: string;
           };
       }
