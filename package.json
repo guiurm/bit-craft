@@ -1,6 +1,6 @@
 {
     "name": "@guiurm/bit-craft",
-    "version": "1.0.0-alpha.05",
+    "version": "1.0.0-rc.1",
     "private": false,
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/@guiurm"
@@ -10,7 +10,8 @@
     "types": "./dist/main.d.ts",
     "files": [
         "dist",
-        "package.json"
+        "package.json",
+        "README.md"
     ],
     "exports": {
         ".": {

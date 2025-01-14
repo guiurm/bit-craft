@@ -53,7 +53,7 @@ const useBitCraft = () => {
     return new BitCraft().install;
 };
 
-export default useBitCraft;
+export { useBitCraft };
 
 // carousel
 export * from './components/carousel/carouselComposable';
@@ -86,9 +86,9 @@ export type * from './composables/toastGenerator';
 
 // com
 
+export { default as AccordionComponent } from './components/accordion/AccordionComponent.vue';
 export { default as CarouselCard } from './components/carousel/CarouselCard.vue';
 export { default as CarouselContainer } from './components/carousel/CarouselContainer.vue';
-export { default as AccordionComponent } from './components/accordion/AccordionComponent.vue';
 export { default as CollapseComponent } from './components/collape/CollapseComponent.vue';
 export { default as CDatatable } from './components/datatable/CDatatable.vue';
 export { default as CDatatableCell } from './components/datatable/CDatatableCell.vue';
