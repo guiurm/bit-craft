@@ -1,0 +1,69 @@
+{
+  "name": "@guiurm/v-lib",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "module": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "types": "./dist/main.d.ts",
+      "require": "./dist/main.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" -- && run-s build:styles",
+    "build:styles": "npx sass ./src/assets/scss/main.scss ./dist/output.css && npx tailwindcss build -i ./dist/output.css -o ./dist/output.css -m && npx tailwindcss build -i ./dist/output.css -o ../../dist/v-lib/output.css -m",
+    "preview": "vite preview",
+    "build-only": "vite build -c vite.config.ts && vite build -c vite.global-config.ts",
+    "type-check": "vue-tsc --build",
+    "lint": "eslint . --fix",
+    "format": "prettier --write src/"
+  },
+  "peerDependencies": {
+    "axios": "^1.7.9",
+    "vue": "~3.5.13",
+    "vue-router": "~4.4.5"
+  },
+  "optionalDependencies": {
+    "@guiurm/api-connector": "^1.0.0",
+    "@guiurm/doom-kit": "^1.0.0"
+  },
+  "dependencies": {
+    "@heroicons/vue": "^2.1.5",
+    "axios": "^1.7.9",
+    "pinia": "^2.3.0",
+    "sass": "^1.84.0",
+    "vue": "~3.5.13",
+    "vue-router": "~4.4.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "~22.0.0",
+    "@types/node": "~22.10.2",
+    "@vitejs/plugin-vue": "~5.2.1",
+    "@vitejs/plugin-vue-jsx": "~4.1.1",
+    "@vue/eslint-config-prettier": "~10.1.0",
+    "@vue/eslint-config-typescript": "~14.1.3",
+    "@vue/tsconfig": "~0.7.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "~9.14.0",
+    "eslint-plugin-vue": "~9.30.0",
+    "npm-run-all2": "~7.0.1",
+    "postcss": "^8.5.1",
+    "prettier": "~3.3.3",
+    "sass-embedded": "^1.83.4",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~5.6.3",
+    "vite": "~6.0.1",
+    "vite-plugin-dts": "~4.3.0",
+    "vite-plugin-vue-devtools": "~7.6.5",
+    "vue-tsc": "~2.1.10"
+  }
+}
