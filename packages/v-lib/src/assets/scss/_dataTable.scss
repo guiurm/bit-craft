@@ -1,0 +1,20 @@
+.bc {
+    &-datatable {
+        &-container {
+            @apply w-full h-full;
+        }
+
+        &-row,
+        &-head {
+            @apply w-full grid;
+        }
+
+        &-cell {
+            @apply px-4 flex flex-row w-full relative overflow-hidden;
+        }
+    }
+
+    &-chebron {
+        @apply size-4 inline-block ml-1;
+    }
+}

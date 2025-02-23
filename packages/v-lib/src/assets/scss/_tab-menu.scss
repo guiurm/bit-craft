@@ -1,0 +1,28 @@
+.tab-menu {
+    @apply flex;
+
+    &.tab-menu--line {
+        @apply flex-wrap;
+    }
+
+    .tab-header {
+        @apply flex flex-wrap border-0 border-b  flex-row;
+
+        &.tab-header {
+            &--line {
+                @apply min-w-full;
+            }
+            &--col {
+                @apply flex-col border-b-0 w-fit;
+            }
+        }
+
+        .tab-btn {
+            @apply flex-grow flex justify-center items-center flex-grow-0;
+        }
+    }
+
+    .tab-body {
+        @apply w-full relative;
+    }
+}

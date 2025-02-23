@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "transitions";
+@import "variables";
+@import "dragAndDrop";
+@import "tab-menu";
+@import "toast";
+@import "carousel";
+@import "dataTable";
+@import "collapse";
+@import "drag_and_drop";

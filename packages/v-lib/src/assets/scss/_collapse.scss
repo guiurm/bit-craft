@@ -1,0 +1,40 @@
+.hs-collapse {
+    @apply w-full flex flex-col;
+
+    &-header {
+        @apply cursor-pointer select-none;
+    }
+
+    &.hs-collapse--open .hs-collapse-header {
+        @apply bg-slate-100;
+    }
+}
+
+.hs-accordion {
+    @apply flex flex-col  mx-4 rounded-lg border border-slate-200;
+
+    .hs-collapse {
+        .hs-collapse-header,
+        .hs-collapse-body {
+            @apply p-6;
+        }
+
+        .hs-collapse-header {
+            @apply flex items-center justify-between cursor-pointer;
+        }
+    }
+
+    .hs-collapse:not(:last-child) {
+        .hs-collapse-header {
+            @apply border-b border-slate-400;
+        }
+
+        .hs-collapse-body {
+            @apply border-b border-slate-200;
+        }
+    }
+
+    .hs-collapse:last-child.hs-collapse--open .hs-collapse-header {
+        @apply border-b border-slate-400;
+    }
+}

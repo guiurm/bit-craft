@@ -1,0 +1,35 @@
+{
+  "name": "@guiurm/event-driver",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "./dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "clear": "rimraf dist build",
+    "build:ts": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "build": "npm run clear && npm run build:ts && npm run rl",
+    "rl": "rollup -c && rollup --config rollup.global-config.mjs",
+    "test": "jest --config=../../config/jest.config.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "optionalDependencies": {
+    "@guiurm/utility-types": "~1.0.0",
+    "uuid": "~11.0.4"
+  }
+}

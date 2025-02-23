@@ -1,0 +1,20 @@
+{
+  "name": "@dev/vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5"
+  },
+  "optionalDependencies": {
+    "@guiurm/foundation": "bitbucket:baboonlab/baboonlab-foundations#foundation",
+    "@guiurm/doom-kit": "^1.0.0",
+    "@guiurm/api-connector": "^1.0.0"
+  }
+}
